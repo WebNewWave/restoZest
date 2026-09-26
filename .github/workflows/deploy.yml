@@ -1,0 +1,90 @@
+name: Deploy to GitHub Pages
+
+# Собирает три концепта и выкладывает их на GitHub Pages по адресам:
+#   https://webnewwave.github.io/restoZest/espresso/
+#   https://webnewwave.github.io/restoZest/lumen/
+#   https://webnewwave.github.io/restoZest/gorsky/
+#
+# Папка для каждого концепта задана в angular.json («baseHref» в секции production).
+# Если поменять адрес — надо поправить baseHref, перегенерировать QR-коды
+# (scripts/make-qr.mjs) и только потом пушить, иначе коды будут вести в никуда.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Забрать код
+        uses: actions/checkout@v4
+
+      - name: Поставить Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Установить зависимости
+        run: npm ci
+
+      - name: Собрать три концепта
+        run: |
+          npm run build:espresso
+          npm run build:lumen
+          npm run build:gorsky
+
+      - name: Разложить сайт по папкам
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          for pair in espresso:concept-espresso lumen:concept-lumen gorsky:concept-gorsky; do
+            name="${pair%%:*}"
+            project="${pair##*:}"
+            mkdir -p "_site/$name"
+            cp -r "dist/$project/browser/." "_site/$name/"
+
+            # Сборка — одностраничное приложение, поэтому на статическом хостинге
+            # /t/7 и /menu отдали бы 404. Кладём копию index.html в каждую папку
+            # маршрута: работает за счёт baseHref в index.html.
+            for route in menu events kitchen; do
+              mkdir -p "_site/$name/$route"
+              cp "_site/$name/index.html" "_site/$name/$route/index.html"
+            done
+            for n in {1..12}; do
+              mkdir -p "_site/$name/t/$n"
+              cp "_site/$name/index.html" "_site/$name/t/$n/index.html"
+            done
+          done
+
+          cp deploy/index.html _site/index.html
+          touch _site/.nojekyll
+
+          echo "Точек входа: $(find _site -name index.html | wc -l)"
+
+      - name: Отдать артефакт
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Опубликовать на GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

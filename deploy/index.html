@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zest Resto — три концепта сайта</title>
+    <meta
+      name="description"
+      content="Три концепта сайта для ресторана Zest Resto (Махачкала): Espresso, Lumen и Горский код."
+    />
+    <style>
+      :root {
+        --bg: #14100e;
+        --bg-soft: #1d1815;
+        --line: #322a25;
+        --text: #f3ebe4;
+        --text-dim: #a99c92;
+        --accent-espresso: #c98a2b;
+        --accent-lumen: #8fb39b;
+        --accent-gorsky: #b4552f;
+        --radius: 18px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: clamp(2rem, 6vw, 5rem) clamp(1.25rem, 5vw, 4rem);
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          'Golos Text', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .wrap {
+        width: min(1100px, 100%);
+        margin: 0 auto;
+      }
+
+      .eyebrow {
+        font-size: 0.8125rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin: 0 0 1rem;
+      }
+
+      h1 {
+        font-size: clamp(1.75rem, 4.2vw, 2.75rem);
+        line-height: 1.15;
+        font-weight: 500;
+        margin: 0 0 1rem;
+        max-width: 22ch;
+      }
+
+      .lead {
+        color: var(--text-dim);
+        font-size: clamp(1rem, 1.6vw, 1.125rem);
+        max-width: 58ch;
+        margin: 0 0 clamp(2rem, 5vw, 3.5rem);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: clamp(1rem, 2vw, 1.5rem);
+      }
+
+      .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: clamp(1.5rem, 3vw, 2rem);
+        background: var(--bg-soft);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        color: inherit;
+        text-decoration: none;
+        overflow: hidden;
+        transition:
+          transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          border-color 0.35s ease;
+      }
+
+      .card::before {
+        content: '';
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 3px;
+        background: var(--accent);
+        opacity: 0.85;
+      }
+
+      .card:hover,
+      .card:focus-visible {
+        transform: translateY(-4px);
+        border-color: var(--accent);
+        outline: none;
+      }
+
+      .card__name {
+        font-size: clamp(1.25rem, 2.4vw, 1.5rem);
+        font-weight: 500;
+        margin: 0;
+      }
+
+      .card__idea {
+        color: var(--text-dim);
+        font-size: 0.9375rem;
+        margin: 0;
+        flex: 1;
+      }
+
+      .card__go {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--accent);
+        letter-spacing: 0.02em;
+      }
+
+      .card__go::after {
+        content: '→';
+        transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .card:hover .card__go::after {
+        transform: translateX(4px);
+      }
+
+      .card--espresso {
+        --accent: var(--accent-espresso);
+      }
+
+      .card--lumen {
+        --accent: var(--accent-lumen);
+      }
+
+      .card--gorsky {
+        --accent: var(--accent-gorsky);
+      }
+
+      footer {
+        margin-top: clamp(2.5rem, 6vw, 4rem);
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--line);
+        color: var(--text-dim);
+        font-size: 0.875rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1.5rem;
+      }
+
+      footer a {
+        color: var(--text-dim);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .card,
+        .card__go::after {
+          transition: none;
+        }
+        .card:hover,
+        .card:focus-visible {
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <p class="eyebrow">Zest Resto · Махачкала</p>
+      <h1>Три концепта сайта</h1>
+      <p class="lead">
+        Один и тот же ресторан, три разных подхода к подаче. Меню, цены и фотографии
+        общие — отличаются первый экран, навигация и настроение. Выберите концепт,
+        чтобы посмотреть.
+      </p>
+
+      <div class="grid">
+        <a class="card card--espresso" href="espresso/">
+          <h2 class="card__name">Espresso</h2>
+          <p class="card__idea">
+            Тёмный премиум. Атмосфера вечернего зала, крупные кадры, сдержанная
+            типографика.
+          </p>
+          <span class="card__go">Открыть</span>
+        </a>
+
+        <a class="card card--lumen" href="lumen/">
+          <h2 class="card__name">Lumen</h2>
+          <p class="card__idea">
+            Светлый и практичный. Меню и цены сразу на первом экране — для гостя,
+            который уже знает, чего хочет.
+          </p>
+          <span class="card__go">Открыть</span>
+        </a>
+
+        <a class="card card--gorsky" href="gorsky/">
+          <h2 class="card__name">Горский код</h2>
+          <p class="card__idea">
+            Локальная идентичность. Орнамент как система, словарь блюд, отдельный
+            фильтр горской кухни.
+          </p>
+          <span class="card__go">Открыть</span>
+        </a>
+      </div>
+
+      <footer>
+        <span>Заказ со стола по QR: <code>/t/7</code></span>
+        <span>Экран кухни: <code>/kitchen</code></span>
+        <a href="https://github.com/WebNewWave/restoZest">Исходный код</a>
+      </footer>
+    </div>
+  </body>
+</html>

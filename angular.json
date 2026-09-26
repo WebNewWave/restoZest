@@ -30,6 +30,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/restoZest/espresso/",
               "budgets": [
                 { "type": "initial", "maximumWarning": "900kB", "maximumError": "1.5MB" },
                 { "type": "anyComponentStyle", "maximumWarning": "24kB", "maximumError": "48kB" }
@@ -77,6 +78,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/restoZest/lumen/",
               "budgets": [
                 { "type": "initial", "maximumWarning": "900kB", "maximumError": "1.5MB" },
                 { "type": "anyComponentStyle", "maximumWarning": "24kB", "maximumError": "48kB" }
@@ -124,6 +126,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/restoZest/gorsky/",
               "budgets": [
                 { "type": "initial", "maximumWarning": "900kB", "maximumError": "1.5MB" },
                 { "type": "anyComponentStyle", "maximumWarning": "24kB", "maximumError": "48kB" }
