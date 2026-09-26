@@ -127,7 +127,7 @@ export class HomePage implements OnInit {
     },
   ];
 
-  protected readonly heroShot = 'img/instagram/02-reel-Ddrjx6DILDU.jpg';
+  protected readonly heroShot = 'img/instagram/12-photo-DcteRo6iDnw.jpg';
   protected readonly grillShot = 'img/instagram/11-reel-DcyaobvRuRI.jpg';
   protected readonly weddingShot = 'img/instagram/03-reel-DdjpF0ZIAmA.jpg';
   protected readonly tableQr = 'img/qr/table-7.svg';
