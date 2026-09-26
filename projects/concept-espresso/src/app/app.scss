@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+}
+
+.skip {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  translate: -50% -120%;
+  z-index: 100;
+  padding: 0.7rem 1.2rem;
+  background: var(--gold-500);
+  color: var(--espresso-900);
+  border-radius: 0 0 var(--radius) var(--radius);
+  font-size: var(--step--1);
+  transition: translate var(--dur) var(--ease-out);
+}
+
+.skip:focus-visible {
+  translate: -50% 0;
+}

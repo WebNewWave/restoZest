@@ -1,0 +1,55 @@
+<footer class="ftr">
+  <div class="container ftr__inner">
+    <div class="ftr__brand">
+      <span class="ftr__mark">Zest</span>
+      <span class="ftr__sub">Resto</span>
+      <p class="ftr__tagline">
+        Ресторан европейской и кавказской кухни.<br />
+        Мангал на живом угле, приватные кабины, зал для торжеств.
+      </p>
+      <a
+        class="ftr__ig"
+        [href]="data()?.contacts?.instagram"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" />
+        </svg>
+        {{ data()?.brand?.handle }}
+      </a>
+    </div>
+
+    <nav class="ftr__col" aria-label="Разделы сайта">
+      <h4>Разделы</h4>
+      <a routerLink="/menu">Меню и цены</a>
+      <a routerLink="/" fragment="atmosphere">Атмосфера</a>
+      <a routerLink="/events">Торжества и банкеты</a>
+      <a routerLink="/" fragment="qr">Заказ со стола по QR</a>
+      <a routerLink="/kitchen">Экран кухни</a>
+    </nav>
+
+    <div class="ftr__col">
+      <h4>Контакты</h4>
+      <a [href]="'tel:' + (data()?.contacts?.phoneHref ?? '')">{{ data()?.contacts?.phone }}</a>
+      <span>{{ data()?.contacts?.address }}</span>
+      <span class="ftr__muted">{{ data()?.contacts?.landmark }}</span>
+    </div>
+
+    <div class="ftr__col">
+      <h4>Часы работы</h4>
+      <span>Ежедневно {{ data()?.hours?.everyday }}</span>
+      <span class="ftr__muted">Завтраки {{ data()?.hours?.breakfast }}</span>
+      <span class="ftr__muted">Средний чек {{ data()?.metrics?.averageBill }}</span>
+    </div>
+  </div>
+
+  <div class="container ftr__bottom">
+    <span>© {{ year }} Zest Resto. Махачкала, ул. Красноярская, 5</span>
+    <span class="ftr__note">
+      Демонстрационный концепт сайта. В меню {{ positions() }} позиций.
+    </span>
+  </div>
+</footer>

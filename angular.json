@@ -1,0 +1,152 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "cli": {
+    "analytics": false,
+    "packageManager": "npm"
+  },
+  "projects": {
+    "concept-espresso": {
+      "projectType": "application",
+      "root": "projects/concept-espresso",
+      "sourceRoot": "projects/concept-espresso/src",
+      "prefix": "zest",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/concept-espresso",
+            "index": "projects/concept-espresso/src/index.html",
+            "browser": "projects/concept-espresso/src/main.ts",
+            "polyfills": [],
+            "tsConfig": "projects/concept-espresso/tsconfig.app.json",
+            "assets": [
+              { "glob": "**/*", "input": "data", "output": "data" },
+              { "glob": "**/*", "input": "assets", "output": "img" },
+              { "glob": "**/*", "input": "projects/concept-espresso/public", "output": "." }
+            ],
+            "styles": ["projects/concept-espresso/src/styles.scss"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                { "type": "initial", "maximumWarning": "900kB", "maximumError": "1.5MB" },
+                { "type": "anyComponentStyle", "maximumWarning": "24kB", "maximumError": "48kB" }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": { "buildTarget": "concept-espresso:build:production" },
+            "development": { "buildTarget": "concept-espresso:build:development" }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    },
+    "concept-lumen": {
+      "projectType": "application",
+      "root": "projects/concept-lumen",
+      "sourceRoot": "projects/concept-lumen/src",
+      "prefix": "zest",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/concept-lumen",
+            "index": "projects/concept-lumen/src/index.html",
+            "browser": "projects/concept-lumen/src/main.ts",
+            "polyfills": [],
+            "tsConfig": "projects/concept-lumen/tsconfig.app.json",
+            "assets": [
+              { "glob": "**/*", "input": "data", "output": "data" },
+              { "glob": "**/*", "input": "assets", "output": "img" },
+              { "glob": "**/*", "input": "projects/concept-lumen/public", "output": "." }
+            ],
+            "styles": ["projects/concept-lumen/src/styles.scss"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                { "type": "initial", "maximumWarning": "900kB", "maximumError": "1.5MB" },
+                { "type": "anyComponentStyle", "maximumWarning": "24kB", "maximumError": "48kB" }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": { "buildTarget": "concept-lumen:build:production" },
+            "development": { "buildTarget": "concept-lumen:build:development" }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    },
+    "concept-gorsky": {
+      "projectType": "application",
+      "root": "projects/concept-gorsky",
+      "sourceRoot": "projects/concept-gorsky/src",
+      "prefix": "zest",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/concept-gorsky",
+            "index": "projects/concept-gorsky/src/index.html",
+            "browser": "projects/concept-gorsky/src/main.ts",
+            "polyfills": [],
+            "tsConfig": "projects/concept-gorsky/tsconfig.app.json",
+            "assets": [
+              { "glob": "**/*", "input": "data", "output": "data" },
+              { "glob": "**/*", "input": "assets", "output": "img" },
+              { "glob": "**/*", "input": "projects/concept-gorsky/public", "output": "." }
+            ],
+            "styles": ["projects/concept-gorsky/src/styles.scss"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                { "type": "initial", "maximumWarning": "900kB", "maximumError": "1.5MB" },
+                { "type": "anyComponentStyle", "maximumWarning": "24kB", "maximumError": "48kB" }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": { "buildTarget": "concept-gorsky:build:production" },
+            "development": { "buildTarget": "concept-gorsky:build:development" }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    }
+  }
+}

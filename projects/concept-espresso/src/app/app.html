@@ -1,0 +1,11 @@
+<a class="skip" href="#main">Перейти к содержанию</a>
+@if (chrome()) {
+  <zest-header />
+}
+<main id="main">
+  <router-outlet />
+</main>
+@if (chrome()) {
+  <zest-footer />
+}
+<zest-cart-drawer />

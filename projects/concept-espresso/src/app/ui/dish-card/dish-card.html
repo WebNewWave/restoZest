@@ -1,0 +1,38 @@
+<article class="dish" [class.dish--hit]="item().hit">
+  <div class="dish__main">
+    <h3 class="dish__name">{{ item().name }}</h3>
+    @if (item().tags?.length || item().hit) {
+      <ul class="dish__tags">
+        @if (item().hit) {
+          <li class="tag tag--hit">выбор гостей</li>
+        }
+        @for (tag of item().tags; track tag) {
+          <li class="tag">{{ tag }}</li>
+        }
+      </ul>
+    }
+  </div>
+
+  <div class="dish__side">
+    <span class="dish__price">{{ priceText() }}</span>
+
+    @if (qty() > 0) {
+      <div class="stepper">
+        <button type="button" (click)="cart.dec(item().id)" aria-label="Убрать одну порцию">−</button>
+        <span>{{ qty() }}</span>
+        <button type="button" (click)="cart.add(item())" aria-label="Добавить одну порцию">+</button>
+      </div>
+    } @else {
+      <button
+        type="button"
+        class="add"
+        (click)="cart.add(item())"
+        [attr.aria-label]="'Добавить в заказ: ' + item().name"
+      >
+        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+          <path d="M12 6v12M6 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
+    }
+  </div>
+</article>

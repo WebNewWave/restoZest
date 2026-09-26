@@ -1,0 +1,33 @@
+{
+  "name": "resto-zest",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Три концепта сайта для ресторана Zest Resto (Махачкала)",
+  "scripts": {
+    "start:espresso": "ng serve concept-espresso --host 127.0.0.1 --port 4201",
+    "start:lumen": "ng serve concept-lumen --host 127.0.0.1 --port 4202",
+    "start:gorsky": "ng serve concept-gorsky --host 127.0.0.1 --port 4203",
+    "build:espresso": "ng build concept-espresso",
+    "build:lumen": "ng build concept-lumen",
+    "build:gorsky": "ng build concept-gorsky",
+    "build:all": "ng build concept-espresso && ng build concept-lumen && ng build concept-gorsky"
+  },
+  "dependencies": {
+    "@angular/common": "^20.0.0",
+    "@angular/compiler": "^20.0.0",
+    "@angular/core": "^20.0.0",
+    "@angular/forms": "^20.0.0",
+    "@angular/platform-browser": "^20.0.0",
+    "@angular/router": "^20.0.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.6.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^20.0.0",
+    "@angular/cli": "^20.0.0",
+    "@angular/compiler-cli": "^20.0.0",
+    "qrcode": "^1.5.4",
+    "typescript": "~5.8.0"
+  }
+}

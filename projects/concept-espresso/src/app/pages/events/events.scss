@@ -1,0 +1,316 @@
+.ev-hero {
+  position: relative;
+  min-height: 78dvh;
+  display: flex;
+  align-items: flex-end;
+  padding-block: calc(var(--header-h) + 3rem) clamp(3rem, 2rem + 4vw, 5rem);
+  overflow: hidden;
+}
+
+.ev-hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.ev-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Смещаем кадр вниз: в кадре показываем цветы, софу и сервировку,
+     а верх с потолком остаётся за границей экрана. */
+  object-position: 50% 76%;
+}
+
+.ev-hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(20, 12, 8, 0.8), rgba(20, 12, 8, 0.35) 40%, rgba(20, 12, 8, 0.96) 90%);
+}
+
+.ev-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1.2rem;
+  max-width: 760px;
+}
+
+.ev-hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+}
+
+/* ---------- Поводы ---------- */
+
+.occasions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 0.6rem + 1.4vw, 1.6rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.occasion {
+  padding: 1.5rem 1.4rem;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  transition: transform var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+}
+
+.occasion:hover {
+  transform: translateY(-4px);
+  border-color: var(--line);
+}
+
+.occasion h3 {
+  font-size: var(--step-1);
+  margin-bottom: 0.6rem;
+}
+
+.occasion p {
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+}
+
+/* ---------- Организация ---------- */
+
+.included {
+  background: linear-gradient(180deg, var(--espresso-800), var(--espresso-900));
+  border-block: 1px solid var(--line-soft);
+}
+
+.included__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 1rem + 4vw, 4.5rem);
+  align-items: center;
+}
+
+.included__list {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.35rem 2rem;
+}
+
+.included__list li {
+  display: grid;
+  gap: 0.3rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--line);
+}
+
+.included__list strong {
+  font-weight: 500;
+  color: var(--gold-300);
+  font-size: var(--step--1);
+}
+
+.included__list span {
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+}
+
+.included__figure {
+  margin: 0;
+}
+
+.included__figure img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+}
+
+/* ---------- Шаги ---------- */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 0.6rem + 1.4vw, 1.75rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+}
+
+.step {
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 0.5rem;
+}
+
+.step__num {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  color: var(--gold-500);
+}
+
+.step h3 {
+  font-size: var(--step-1);
+}
+
+.step p {
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+}
+
+/* ---------- Форма ---------- */
+
+.event-form__grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(2rem, 1rem + 4vw, 4.5rem);
+  align-items: start;
+}
+
+.event-form__text h2 {
+  margin: 0.9rem 0 1.2rem;
+}
+
+.event-form__figure {
+  margin: 2rem 0 0;
+}
+
+.event-form__figure img {
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+}
+
+.form {
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.25rem, 1rem + 1.4vw, 2.25rem);
+  display: grid;
+  gap: 1.1rem;
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.field__label {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 0.78rem 0.9rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-soft);
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--step--1);
+  resize: vertical;
+  transition: border-color var(--dur) var(--ease-out);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--gold-500);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--ink-faint);
+}
+
+.field select option {
+  background: var(--espresso-800);
+}
+
+.form__small {
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  text-align: center;
+}
+
+.form__done {
+  display: grid;
+  gap: 0.8rem;
+  justify-items: start;
+  padding: 0.5rem 0;
+}
+
+.form__done h3 {
+  font-size: var(--step-2);
+}
+
+.form__done p {
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+}
+
+/* ---------- Дальше ---------- */
+
+.back-home {
+  text-align: center;
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+}
+
+.back-home__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-top: 0.6rem;
+}
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 1024px) {
+  .occasions,
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .included__grid,
+  .event-form__grid {
+    grid-template-columns: 1fr;
+  }
+  .included__figure img {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+@media (max-width: 620px) {
+  .occasions,
+  .steps,
+  .included__list,
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+  .ev-hero {
+    min-height: auto;
+    padding-top: calc(var(--header-h) + 4rem);
+  }
+}
