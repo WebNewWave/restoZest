@@ -58,13 +58,18 @@ export class HomePage implements OnInit {
     '01-reel-DaA5anRomGR.jpg',
   ];
 
-  /** Кадрирование там, где сюжет стоит не по центру кадра. */
+  /**
+   * Кадрирование там, где сюжет стоит не по центру кадра.
+   *
+   * У кадра с медальонами (05) снизу в кадр попала размытая рука — сдвигом
+   * вверх (22% вместо центра) она уходит за границу плитки.
+   */
   private static readonly FOCUS: Record<string, string> = {
     '10-photo-Dcy7yBCIiBw.jpg': '50% 14%',
     '04-photo-Ddek7mmCMoq.jpg': '50% 76%',
     '12-photo-DcteRo6iDnw.jpg': '50% 70%',
     '02-reel-Ddrjx6DILDU.jpg': '50% 42%',
-    '05-reel-DdTGlUtIa4g.jpg': '50% 58%',
+    '05-reel-DdTGlUtIa4g.jpg': '50% 22%',
   };
 
   protected readonly gallery = computed<GalleryShot[]>(() => {
@@ -84,14 +89,20 @@ export class HomePage implements OnInit {
   protected readonly weddingShot = 'img/instagram/03-reel-DdjpF0ZIAmA.jpg';
   protected readonly tableQr = 'img/qr/table-7.svg';
 
-  /** Блюда-визитки с реальными кадрами из ресторана. */
+  /**
+   * Блюда-визитки.
+   *
+   * Здесь только те позиции, для которых в профиле нашлось настоящее фото
+   * (640×640). Кадры из видео (360×640) в крупную карточку не ставим: на ней
+   * 380 px по ширине, и такой кадр растягивается. Карточки «Говяжьи медальоны»
+   * и «Блюда с мангала» убраны по этой причине — вернём, когда ресторан
+   * пришлёт оригиналы.
+   */
   protected readonly signature = [
     { name: 'Стейк Томагавк', price: 1450, note: 'Большой кусок сочного мяса на кости — то, что берут за максимумом', img: 'img/instagram/11-reel-DcyaobvRuRI.jpg' },
-    { name: 'Говяжьи медальоны', price: 930, note: 'Нежная вырезка, правильная прожарка, рис с овощами', img: 'img/instagram/05-reel-DdTGlUtIa4g.jpg' },
     { name: 'Судак со спаржей', price: 640, note: 'Хрустящая спаржа и яркий ромеско с томатами кимчи', img: 'img/instagram/12-photo-DcteRo6iDnw.jpg' },
     { name: 'Индейка с птитим', price: 690, note: 'Насыщенный грибной крем, маринованный романо, пармезан', img: 'img/instagram/07-photo-DdBugvxCB93.jpg' },
     { name: 'Авторский Наполеон', price: 480, note: 'Хрустящие коржи, нежный крем и ягодный акцент', img: 'img/instagram/04-photo-Ddek7mmCMoq.jpg' },
-    { name: 'Блюда с мангала', price: 490, note: 'Готовим на живом угле: баранина, телятина, форель, овощи', img: 'img/instagram/02-reel-Ddrjx6DILDU.jpg' },
   ];
 
   protected readonly facts = computed(() => [

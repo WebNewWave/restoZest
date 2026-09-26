@@ -69,7 +69,7 @@ export class HomePage implements OnInit {
   /** Немного декора — но только там, где он помогает решить, а не просто украшает. */
   protected readonly atmosphere = [
     { src: 'img/instagram/06-reel-DdPJDFOoE-U.jpg', alt: 'Гости с букетами в зале Zest Resto' },
-    { src: 'img/instagram/02-reel-Ddrjx6DILDU.jpg', alt: 'Блюдо на мангале, живой уголь' },
+    { src: 'img/instagram/07-photo-DdBugvxCB93.jpg', alt: 'Индейка с птитим и грибным кремом' },
     { src: 'img/instagram/03-reel-DdjpF0ZIAmA.jpg', alt: 'Свадебное оформление зала' },
     { src: 'img/instagram/12-photo-DcteRo6iDnw.jpg', alt: 'Судак со спаржей и томатами кимчи' },
   ];

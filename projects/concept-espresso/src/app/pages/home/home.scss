@@ -243,7 +243,9 @@
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Четыре в ряд: карточка выходит ~280 px, и кадр 360×640 в ней
+     уменьшается, а не растягивается. На трёх колонках он был бы крупнее. */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(1rem, 0.6rem + 1.4vw, 1.75rem);
   list-style: none;
   margin: 0;
