@@ -1,0 +1,405 @@
+/* ==========================================================================
+   Меню «Горского кода»: слева разделы, справа блюда. Горская классика
+   включается одной кнопкой и остаётся отмеченной ромбом.
+   ========================================================================== */
+
+.page-head {
+  padding-block: clamp(2rem, 1.5rem + 2.5vw, 3.5rem) clamp(1.25rem, 1rem + 1.5vw, 2rem);
+}
+
+.page-head h1 {
+  margin-block: 0.5rem 0.75rem;
+}
+
+/* ---------- Панель ---------- */
+
+.toolbar {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 40;
+  background: rgba(251, 246, 236, 0.95);
+  backdrop-filter: blur(12px);
+  border-block: 1px solid var(--line);
+}
+
+.toolbar__inner {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding-block: 0.7rem;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex: none;
+  width: min(22rem, 36%);
+  padding: 0.15rem 0.75rem;
+  background: var(--sand-50);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--dur) var(--ease-out);
+}
+
+.search:focus-within {
+  border-color: var(--clay-700);
+}
+
+.search svg {
+  flex: none;
+  color: var(--ink-400);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding-block: 0.5rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--step--1);
+  color: var(--ink-900);
+}
+
+.search input:focus {
+  outline: none;
+}
+
+.search input::placeholder {
+  color: var(--ink-400);
+}
+
+.search button {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-xs);
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--ink-400);
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.search button:hover {
+  background: var(--sand-200);
+  color: var(--ink-900);
+}
+
+/* ---------- Кнопка «Горская кухня» ---------- */
+
+.national-toggle {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.95rem;
+  border: 1px solid var(--ochre-400);
+  border-radius: var(--radius-sm);
+  background: var(--ochre-100);
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--ochre-700);
+  white-space: nowrap;
+  transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out);
+}
+
+.national-toggle:hover {
+  border-color: var(--ochre-600);
+}
+
+.national-toggle.is-active {
+  background: var(--clay-700);
+  border-color: var(--clay-700);
+  color: var(--sand-50);
+}
+
+.national-toggle__mark {
+  width: 7px;
+  height: 7px;
+  rotate: 45deg;
+  background: currentColor;
+}
+
+.national-toggle__count {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.05rem 0.4rem;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.08);
+  font-variant-numeric: tabular-nums;
+}
+
+.national-toggle.is-active .national-toggle__count {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ---------- Чипы категорий ---------- */
+
+.chips-scroll {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: 0.15rem;
+  mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 1.5rem), transparent 100%);
+}
+
+.chips-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.chip-filter {
+  flex: none;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--sand-50);
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-500);
+  white-space: nowrap;
+  transition: background-color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out);
+}
+
+.chip-filter:hover {
+  border-color: var(--clay-700);
+  color: var(--clay-700);
+}
+
+.chip-filter.is-active {
+  background: var(--forest-700);
+  border-color: var(--forest-700);
+  color: var(--sand-50);
+}
+
+/* ---------- Строка результата ---------- */
+
+.found {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+  font-size: var(--step--1);
+  color: var(--ink-500);
+}
+
+.found__reset {
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--clay-700);
+  border-bottom: 1px solid var(--ochre-400);
+  transition: color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+}
+
+.found__reset:hover {
+  color: var(--ochre-700);
+  border-color: var(--clay-700);
+}
+
+/* ---------- Раскладка ---------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: start;
+}
+
+.side {
+  position: sticky;
+  top: calc(var(--header-h) + 4.5rem);
+  display: grid;
+  gap: 0.5rem;
+  max-height: calc(100dvh - var(--header-h) - 6rem);
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+}
+
+.side__title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ochre-700);
+}
+
+.side__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.side__list button {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.45rem 0;
+  text-align: left;
+  font-size: var(--step--1);
+  color: var(--ink-500);
+  border-bottom: 1px solid transparent;
+  transition: color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+}
+
+.side__list button:hover {
+  color: var(--clay-800);
+  border-bottom-color: var(--ochre-500);
+}
+
+.side__count {
+  font-size: 0.7rem;
+  color: var(--ink-400);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Разделы ---------- */
+
+.cats {
+  display: grid;
+  gap: clamp(2rem, 2.5vw, 3rem);
+}
+
+.cat {
+  scroll-margin-top: calc(var(--header-h) + 5rem);
+}
+
+.cat__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+}
+
+.cat__head h2 {
+  font-size: var(--step-2);
+  letter-spacing: -0.015em;
+}
+
+.cat__note {
+  font-size: var(--step--1);
+  color: var(--ink-400);
+}
+
+.cat__count {
+  margin-inline-start: auto;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ochre-700);
+  font-variant-numeric: tabular-nums;
+  padding: 0.1rem 0.5rem;
+  background: var(--ochre-100);
+  border-radius: var(--radius-xs);
+}
+
+.cat__items {
+  display: grid;
+  gap: 0.5rem;
+}
+
+@media (min-width: 1200px) {
+  .cat__items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Плавающая корзина ---------- */
+
+.cart-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  background: var(--forest-800);
+  color: var(--sand-100);
+  box-shadow: 0 -12px 34px -20px rgba(31, 58, 44, 0.7);
+  animation: cart-in var(--dur) var(--ease-out);
+}
+
+@keyframes cart-in {
+  from {
+    translate: 0 100%;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+.cart-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.75rem;
+}
+
+.cart-bar__info {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+}
+
+.cart-bar__count {
+  display: grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  padding-inline: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--ochre-500);
+  color: var(--clay-900);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.cart-bar__total {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 1100px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .side {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .toolbar__inner {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .search {
+    width: 100%;
+    order: 1;
+  }
+
+  .national-toggle {
+    order: 2;
+  }
+
+  .chips-scroll {
+    order: 3;
+    width: 100%;
+  }
+}

@@ -1,0 +1,564 @@
+/* ==========================================================================
+   Главная «Горского кода»: горская кухня в первом экране, орнамент как система.
+   ========================================================================== */
+
+/* ---------- Первый экран ---------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(2rem, 1.4rem + 3vw, 4rem) clamp(2.5rem, 2rem + 3vw, 4.5rem);
+}
+
+/* Большой орнаментальный медальон — фоновая графика, а не картинка. */
+.hero__ornament {
+  position: absolute;
+  top: 50%;
+  right: -6rem;
+  width: min(46rem, 78vw);
+  translate: 0 -50%;
+  color: var(--ochre-500);
+  opacity: 0.13;
+  pointer-events: none;
+}
+
+.medallion {
+  width: 100%;
+  height: auto;
+  animation: medallion-spin 180s linear infinite;
+}
+
+@keyframes medallion-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.hero__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(1.75rem, 3vw, 3.5rem);
+  align-items: start;
+}
+
+.hero__text {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.hero__title {
+  font-size: var(--step-4);
+  letter-spacing: -0.02em;
+  max-width: 24ch;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+.hero__figure {
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.hero__figure img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 50% 42%;
+  border-radius: var(--radius-lg);
+  background: var(--sand-300);
+}
+
+.hero__figure figcaption {
+  font-size: var(--step--1);
+  color: var(--ink-400);
+  line-height: 1.5;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--ochre-500);
+}
+
+/* ---------- Факты ---------- */
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem 1.5rem;
+  margin: 0.5rem 0 0;
+  width: 100%;
+}
+
+.facts__item {
+  display: grid;
+  gap: 0.15rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line-strong);
+}
+
+.facts dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-400);
+}
+
+.facts dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 750;
+  color: var(--clay-800);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Горская классика ---------- */
+
+.groups {
+  display: grid;
+  gap: clamp(2rem, 2.5vw, 3rem);
+}
+
+.group {
+  scroll-margin-top: calc(var(--header-h) + 2rem);
+}
+
+.group__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.group__head h3 {
+  font-size: var(--step-2);
+  letter-spacing: -0.015em;
+}
+
+.group__count {
+  margin-inline-start: auto;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ochre-700);
+  font-variant-numeric: tabular-nums;
+  padding: 0.1rem 0.5rem;
+  background: var(--ochre-100);
+  border-radius: var(--radius-xs);
+}
+
+.group__note {
+  font-size: var(--step--1);
+  color: var(--ink-400);
+  margin-bottom: 0.85rem;
+}
+
+.group__items {
+  display: grid;
+  gap: 0.5rem;
+}
+
+/* На широком экране блюда идут в две колонки — меню длинное. */
+@media (min-width: 1000px) {
+  .group__items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Мангал ---------- */
+
+.mangal__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.75rem, 3vw, 3.5rem);
+  align-items: center;
+}
+
+.mangal__text {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.mangal__list {
+  display: grid;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  width: 100%;
+}
+
+.mangal__list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-size: var(--step-0);
+}
+
+.mangal__name {
+  font-family: var(--font-display);
+  font-weight: 650;
+}
+
+.mangal__dots {
+  flex: 1;
+  min-width: 1rem;
+  height: 0;
+  border-bottom: 1px dotted rgba(244, 234, 216, 0.32);
+  translate: 0 -0.2em;
+}
+
+.mangal__price {
+  font-family: var(--font-display);
+  font-weight: 750;
+  color: var(--ochre-400);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.mangal__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.mangal__figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: rgba(244, 234, 216, 0.08);
+}
+
+.mangal__figure img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 50% 55%;
+}
+
+/* ---------- Разбор названий ---------- */
+
+.glossary__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1px;
+  margin: 0;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.glossary__row {
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+  padding: 1.25rem 1.35rem;
+  background: var(--sand-50);
+}
+
+.glossary__row dt {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 750;
+  color: var(--clay-800);
+}
+
+.glossary__mark {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  rotate: 45deg;
+  background: var(--ochre-500);
+}
+
+.glossary__row dd {
+  margin: 0;
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+
+.glossary__note {
+  margin-top: 1.25rem;
+  font-size: var(--step--1);
+  color: var(--ink-400);
+  font-style: italic;
+}
+
+/* ---------- Шаги ---------- */
+
+.steps {
+  display: grid;
+  gap: 0.85rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.steps li {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+}
+
+.steps__num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--ochre-100);
+  border: 1px solid var(--ochre-400);
+  color: var(--ochre-700);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.steps strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  font-weight: 700;
+}
+
+.steps span {
+  display: block;
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+/* ---------- QR, бронь, контакты ---------- */
+
+.qr__grid,
+.booking__grid,
+.contacts__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.75rem, 3vw, 3.5rem);
+  align-items: start;
+}
+
+.qr__text,
+.booking__text,
+.contacts__info {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.qr__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+.qr__card {
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  padding: clamp(1.5rem, 2vw, 2.25rem);
+  background: var(--sand-50);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.qr__frame {
+  padding: 0.85rem;
+  background: #fff;
+  border-radius: var(--radius);
+}
+
+.qr__frame img {
+  width: clamp(9rem, 20vw, 12rem);
+  height: auto;
+}
+
+.qr__caption {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 800;
+  color: var(--clay-800);
+  margin-top: 0.5rem;
+}
+
+.qr__hint {
+  font-size: var(--step--1);
+  color: var(--ink-400);
+  text-align: center;
+  max-width: 26ch;
+}
+
+.booking__figure {
+  margin: 0.5rem 0 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--sand-300);
+}
+
+.booking__figure img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: 50% 60%;
+}
+
+/* ---------- Форма ---------- */
+
+.form {
+  display: grid;
+  gap: 0.9rem;
+  padding: clamp(1.25rem, 2vw, 1.85rem);
+  background: var(--sand-50);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.form__row--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.form__small {
+  font-size: 0.75rem;
+  color: var(--ink-400);
+  text-align: center;
+}
+
+.form__done {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: start;
+  padding-block: 0.5rem;
+}
+
+.form__done h3 {
+  font-size: var(--step-2);
+}
+
+.form__done p {
+  font-size: var(--step-0);
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+
+/* ---------- Контакты ---------- */
+
+.contacts__list {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  width: 100%;
+}
+
+.contacts__list div {
+  display: grid;
+  gap: 0.15rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.contacts__list dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-400);
+}
+
+.contacts__list dd {
+  margin: 0;
+  font-size: var(--step-0);
+  font-weight: 500;
+}
+
+.contacts__list a {
+  border-bottom: 1px solid var(--ochre-400);
+  transition: color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+}
+
+.contacts__list a:hover {
+  color: var(--clay-700);
+  border-color: var(--clay-700);
+}
+
+.contacts__muted {
+  font-size: var(--step--1) !important;
+  font-weight: 400 !important;
+  color: var(--ink-400);
+}
+
+.contacts__map {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--sand-300);
+  min-height: 22rem;
+}
+
+.contacts__map iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 22rem;
+  border: 0;
+}
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 1000px) {
+  .hero__grid,
+  .mangal__grid,
+  .qr__grid,
+  .booking__grid,
+  .contacts__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__ornament {
+    right: -12rem;
+    opacity: 0.1;
+  }
+
+  .hero__figure img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .booking__figure {
+    display: none;
+  }
+
+  .qr__card {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .form__row,
+  .form__row--3 {
+    grid-template-columns: 1fr;
+  }
+
+  .glossary__list {
+    grid-template-columns: 1fr;
+  }
+}

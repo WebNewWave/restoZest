@@ -1,0 +1,289 @@
+/* ==========================================================================
+   Страница торжеств «Горского кода»: большой стол, горская классика, мангал.
+   ========================================================================== */
+
+.ev-hero {
+  padding-block: clamp(2rem, 1.5rem + 3vw, 4rem) clamp(2rem, 1.5rem + 3vw, 3.5rem);
+}
+
+.ev-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(1.75rem, 3vw, 3.5rem);
+  align-items: center;
+}
+
+.ev-hero__text {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.ev-hero__text h1 {
+  font-size: var(--step-4);
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+}
+
+.ev-hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+.ev-hero__figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--sand-300);
+}
+
+.ev-hero__figure img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 50% 76%;
+}
+
+/* ---------- Поводы ---------- */
+
+.occasions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.occasion {
+  position: relative;
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+  padding: 1.25rem 1.35rem 1.25rem 1.5rem;
+  background: var(--sand-50);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* Ромб в углу карточки — тот же знак, что и в орнаменте. */
+.occasion__mark {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  width: 8px;
+  height: 8px;
+  rotate: 45deg;
+  background: var(--ochre-400);
+}
+
+.occasion h3 {
+  font-size: var(--step-1);
+  letter-spacing: -0.015em;
+  padding-right: 1.5rem;
+}
+
+.occasion p {
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+
+/* ---------- Организация ---------- */
+
+.included__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: clamp(1.75rem, 3vw, 3.5rem);
+  align-items: start;
+}
+
+.included__list {
+  display: grid;
+  gap: 0.9rem;
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+}
+
+.included__list li {
+  display: grid;
+  gap: 0.15rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(244, 234, 216, 0.16);
+}
+
+.included__list strong {
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  font-weight: 700;
+  color: var(--sand-100);
+}
+
+.included__list span {
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: rgba(244, 234, 216, 0.68);
+}
+
+.included__figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: rgba(244, 234, 216, 0.08);
+}
+
+.included__figure img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: 50% 42%;
+}
+
+/* ---------- Шаги ---------- */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.step {
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+  padding: 1.25rem 1.35rem;
+  background: var(--sand-50);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.step__num {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 800;
+  color: var(--ochre-500);
+  font-variant-numeric: tabular-nums;
+}
+
+.step h3 {
+  font-size: var(--step-0);
+  font-weight: 700;
+}
+
+.step p {
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+
+/* ---------- Заявка ---------- */
+
+.event-form__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.75rem, 3vw, 3.5rem);
+  align-items: start;
+}
+
+.event-form__text {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.event-form__figure {
+  margin: 0.5rem 0 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--sand-300);
+}
+
+.event-form__figure img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: 50% 55%;
+}
+
+.form {
+  display: grid;
+  gap: 0.9rem;
+  padding: clamp(1.25rem, 2vw, 1.85rem);
+  background: var(--sand-50);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.form__small {
+  font-size: 0.75rem;
+  color: var(--ink-400);
+  text-align: center;
+}
+
+.form__done {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: start;
+  padding-block: 0.5rem;
+}
+
+.form__done h3 {
+  font-size: var(--step-2);
+}
+
+.form__done p {
+  font-size: var(--step-0);
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+
+/* ---------- Финальный призыв ---------- */
+
+.back-home {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+}
+
+.back-home__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 1000px) {
+  .ev-hero__grid,
+  .included__grid,
+  .event-form__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .included__figure img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .event-form__figure {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+}

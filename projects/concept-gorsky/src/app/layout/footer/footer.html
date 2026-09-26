@@ -1,0 +1,58 @@
+<footer class="ftr">
+  <div class="container ftr__top">
+    <div class="ftr__brand">
+      <span class="ftr__mark">Zest</span>
+      <span class="ftr__sub">Resto</span>
+      <p class="ftr__tagline">
+        Дагестанская классика и мангал на живом угле.<br />
+        Махачкала, ул. Красноярская, 5.
+      </p>
+      <a
+        class="ftr__ig"
+        [href]="data()?.contacts?.instagram"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" />
+        </svg>
+        {{ data()?.brand?.handle }}
+      </a>
+    </div>
+
+    <nav class="ftr__col" aria-label="Разделы сайта">
+      <h4>Разделы</h4>
+      <a routerLink="/menu">Всё меню</a>
+      <a routerLink="/menu" [queryParams]="{ tag: 'national' }">Горская кухня</a>
+      <a routerLink="/menu" fragment="cat-mangal">Мангал</a>
+      <a routerLink="/events">Свадьбы и торжества</a>
+      <a routerLink="/kitchen">Экран кухни</a>
+    </nav>
+
+    <nav class="ftr__col" aria-label="Горская классика">
+      <h4>Горская классика</h4>
+      @for (dish of nationalList(); track dish.id) {
+        <a routerLink="/menu" [queryParams]="{ tag: 'national' }">{{ dish.name }}</a>
+      }
+      <a class="ftr__ig" routerLink="/menu" [queryParams]="{ tag: 'national' }">
+        Все {{ nationalCount() }} блюд →
+      </a>
+    </nav>
+
+    <div class="ftr__col">
+      <h4>Контакты</h4>
+      <a [href]="'tel:' + (data()?.contacts?.phoneHref ?? '')">{{ data()?.contacts?.phone }}</a>
+      <span>{{ data()?.contacts?.address }}</span>
+      <span class="ftr__muted">{{ data()?.contacts?.landmark }}</span>
+      <span class="ftr__muted">Ежедневно {{ data()?.hours?.everyday }}</span>
+      <span class="ftr__muted">Завтраки {{ data()?.hours?.breakfast }}</span>
+    </div>
+  </div>
+
+  <div class="container ftr__bottom">
+    <span>© {{ year }} Zest Resto. Махачкала, ул. Красноярская, 5</span>
+    <span class="ftr__note">Демонстрационный концепт сайта «Горский код»</span>
+  </div>
+</footer>

@@ -1,0 +1,338 @@
+/* ==========================================================================
+   Экран кухни «Горского кода»: тёмная доска. На кухне свет бьёт в глаза,
+   поэтому фон тёмный, а номер стола — самый крупный элемент.
+   ========================================================================== */
+
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: var(--forest-800);
+  color: var(--sand-200);
+}
+
+.k-head {
+  background: rgba(31, 58, 44, 0.96);
+  border-bottom: 1px solid rgba(244, 234, 216, 0.14);
+}
+
+.k-head__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-block: 0.85rem;
+}
+
+.k-head__brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.k-head__mark {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--sand-100);
+}
+
+.k-head__sub {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ochre-400);
+}
+
+.k-head__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.k-head__chip {
+  padding: 0.35rem 0.75rem;
+  border: 1px solid rgba(244, 234, 216, 0.2);
+  border-radius: var(--radius-sm);
+  background: rgba(244, 234, 216, 0.06);
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: rgba(244, 234, 216, 0.8);
+  font-variant-numeric: tabular-nums;
+}
+
+.k-head__chip--accent {
+  background: var(--ochre-500);
+  border-color: var(--ochre-500);
+  color: var(--clay-900);
+  font-weight: 700;
+}
+
+.k-head__chip--demo {
+  background: rgba(220, 168, 88, 0.16);
+  border-color: rgba(220, 168, 88, 0.44);
+  color: var(--ochre-400);
+}
+
+.k-head__link {
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--sand-200);
+  border-bottom: 1px solid rgba(220, 168, 88, 0.6);
+  transition: color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+}
+
+.k-head__link:hover {
+  color: var(--ochre-400);
+  border-color: var(--ochre-400);
+}
+
+/* ---------- Подсказка про демо-режим ---------- */
+
+.notice {
+  background: rgba(220, 168, 88, 0.12);
+  border-bottom: 1px solid rgba(220, 168, 88, 0.28);
+}
+
+.notice p {
+  padding-block: 0.75rem;
+  font-size: var(--step--1);
+  line-height: 1.55;
+  color: rgba(244, 234, 216, 0.86);
+}
+
+.notice a {
+  font-weight: 600;
+  color: var(--ochre-400);
+  border-bottom: 1px solid currentColor;
+}
+
+/* ---------- Доска ---------- */
+
+.board {
+  padding-block: clamp(1.25rem, 1rem + 2vw, 2.25rem) 3rem;
+}
+
+.board__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.9rem, 1.6vw, 1.5rem);
+  align-items: start;
+}
+
+.col {
+  display: grid;
+  gap: 0.25rem;
+  align-content: start;
+  padding: 1rem;
+  background: rgba(244, 234, 216, 0.05);
+  border: 1px solid rgba(244, 234, 216, 0.14);
+  border-radius: var(--radius-lg);
+}
+
+.col--new {
+  border-color: var(--ochre-500);
+  background: rgba(220, 168, 88, 0.08);
+}
+
+.col__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.col__head h2 {
+  font-size: var(--step-1);
+  font-weight: 750;
+  color: var(--sand-100);
+}
+
+.col__count {
+  display: grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  padding-inline: 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(244, 234, 216, 0.14);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.col--new .col__count {
+  background: var(--ochre-500);
+  color: var(--clay-900);
+}
+
+.col__hint {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(244, 234, 216, 0.44);
+  margin-bottom: 0.6rem;
+}
+
+.col__body {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.col__empty {
+  padding-block: 1.5rem;
+  text-align: center;
+  font-size: var(--step--1);
+  color: rgba(244, 234, 216, 0.36);
+}
+
+/* ---------- Тикет заказа ---------- */
+
+.ticket {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.9rem 1rem;
+  background: var(--sand-100);
+  color: var(--ink-900);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--ochre-500);
+  animation: ticket-in var(--dur) var(--ease-out);
+}
+
+@keyframes ticket-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ticket--late {
+  border-left-color: var(--clay-600);
+  box-shadow: 0 0 0 2px var(--clay-600);
+}
+
+.ticket__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.ticket__table {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 800;
+  color: var(--clay-800);
+}
+
+.ticket__time {
+  font-size: 0.72rem;
+  color: var(--ink-400);
+  font-variant-numeric: tabular-nums;
+}
+
+.ticket__flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ochre-700);
+}
+
+.ticket__flag-mark {
+  width: 7px;
+  height: 7px;
+  rotate: 45deg;
+  background: var(--ochre-500);
+}
+
+.ticket__lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.ticket__lines li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: var(--step--1);
+  line-height: 1.45;
+}
+
+.ticket__qty {
+  flex: none;
+  min-width: 1.7rem;
+  font-weight: 700;
+  color: var(--clay-700);
+  font-variant-numeric: tabular-nums;
+}
+
+.ticket__name {
+  flex: 1;
+  min-width: 0;
+  color: var(--ink-700);
+}
+
+.ticket__sum {
+  flex: none;
+  color: var(--ink-400);
+  font-variant-numeric: tabular-nums;
+}
+
+.ticket__comment {
+  padding: 0.5rem 0.7rem;
+  background: var(--ochre-100);
+  border-radius: var(--radius-xs);
+  font-size: var(--step--1);
+  line-height: 1.45;
+  color: var(--ink-700);
+}
+
+.ticket__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line);
+}
+
+.ticket__total {
+  font-size: 0.76rem;
+  color: var(--ink-400);
+  font-variant-numeric: tabular-nums;
+}
+
+.ticket__actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 1080px) {
+  .board__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .board__grid {
+    grid-template-columns: 1fr;
+  }
+}

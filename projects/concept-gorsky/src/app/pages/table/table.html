@@ -1,0 +1,146 @@
+<header class="tbl-head">
+  <div class="container tbl-head__inner">
+    <a class="tbl-head__brand" routerLink="/" aria-label="Zest Resto — на главную">
+      <span class="tbl-head__mark">Zest</span>
+      <span class="tbl-head__sub">Resto</span>
+    </a>
+
+    <div class="tbl-head__table">
+      <span class="tbl-head__label">Стол</span>
+      <strong>№{{ table() }}</strong>
+    </div>
+
+    <a class="tbl-head__call" [href]="'tel:' + phoneHref()">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+        <path
+          d="M6.5 4h3l1.4 3.6-2 1.4a11 11 0 0 0 5.1 5.1l1.4-2 3.6 1.4v3c0 1-.8 1.8-1.8 1.7C10.4 17.7 6.3 13.6 4.8 5.8 4.7 4.8 5.5 4 6.5 4z"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <span>{{ phone() }}</span>
+    </a>
+  </div>
+  <div class="tbl-head__band ornament-band" aria-hidden="true"></div>
+</header>
+
+<section class="tbl-intro">
+  <div class="container">
+    <p class="eyebrow">Заказ со стола</p>
+    <h1>Что будем заказывать?</h1>
+    <p class="lead">
+      Выберите блюда — заказ уйдёт на кухню с номером вашего стола. Горская классика отмечена
+      ромбом: {{ nationalCount() }} блюд.
+    </p>
+  </div>
+</section>
+
+@if (myOrders().length) {
+  <section class="my-orders">
+    <div class="container">
+      <h2 class="my-orders__title">Ваши заказы</h2>
+      <ul class="my-orders__list">
+        @for (order of myOrders(); track order.id) {
+          <li class="my-order" [class.my-order--done]="order.status === 'served' || order.status === 'paid'">
+            <div class="my-order__top">
+              <span class="my-order__status">{{ statusLabel[order.status] }}</span>
+              <span class="my-order__time">{{ formatTime(order.createdAt) }}</span>
+            </div>
+            <p class="my-order__items">
+              {{ order.lines.length }} позиций · {{ price()(order.total) }}
+            </p>
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+}
+
+<div class="toolbar">
+  <div class="container toolbar__inner">
+    <label class="search">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.7" />
+        <path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+      </svg>
+      <input
+        type="search"
+        placeholder="Найти блюдо"
+        [ngModel]="query()"
+        (ngModelChange)="query.set($event)"
+        aria-label="Поиск по меню"
+      />
+    </label>
+
+    <button
+      type="button"
+      class="national-toggle"
+      [class.is-active]="nationalOnly()"
+      [attr.aria-pressed]="nationalOnly()"
+      (click)="toggleNational()"
+    >
+      <span class="national-toggle__mark" aria-hidden="true"></span>
+      Горская кухня
+    </button>
+
+    <div class="chips-scroll">
+      <button type="button" class="chip-filter" [class.is-active]="active() === 'all'" (click)="pick('all')">
+        Всё
+      </button>
+      @for (cat of categories(); track cat.id) {
+        <button
+          type="button"
+          class="chip-filter"
+          [class.is-active]="active() === cat.id"
+          (click)="pick(cat.id)"
+        >{{ cat.name }}</button>
+      }
+    </div>
+  </div>
+</div>
+
+<section class="tbl-menu">
+  <div class="container">
+    @if (loading()) {
+      <p class="state">Загружаем меню…</p>
+    } @else {
+      <div class="cats">
+        @for (cat of visible(); track cat.id) {
+          <section class="cat">
+            <header class="cat__head">
+              <h2>{{ cat.name }}</h2>
+              @if (cat.note) {
+                <span class="cat__note">{{ cat.note }}</span>
+              }
+              <span class="cat__count">{{ cat.items.length }}</span>
+            </header>
+            <div class="cat__items">
+              @for (item of cat.items; track item.id) {
+                <zest-dish [item]="item" [currency]="currency()" />
+              }
+            </div>
+          </section>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<div class="cart-bar" [class.cart-bar--empty]="cart.isEmpty()">
+  <div class="container cart-bar__inner">
+    <div class="cart-bar__info">
+      @if (cart.isEmpty()) {
+        <span class="cart-bar__hint">Выберите блюда из меню</span>
+      } @else {
+        <span class="cart-bar__count">{{ cart.count() }}</span>
+        <span class="cart-bar__total">{{ price()(cart.total()) }}</span>
+        <span class="cart-bar__table">Стол №{{ table() }}</span>
+      }
+    </div>
+    <button type="button" class="btn btn--ochre" [disabled]="cart.isEmpty()" (click)="ui.openCart()">
+      Оформить заказ
+    </button>
+  </div>
+</div>

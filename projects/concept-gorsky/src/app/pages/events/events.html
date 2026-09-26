@@ -1,0 +1,167 @@
+<section class="ev-hero">
+  <div class="container ev-hero__grid">
+    <div class="ev-hero__text">
+      <p class="eyebrow" zestReveal>Свадьбы и торжества</p>
+      <h1 zestReveal [zestReveal]="40">Праздник, где стол ломится от своего</h1>
+      <p class="lead" zestReveal [zestReveal]="80">
+        Свадьба в кругу близких, сватовство, день рождения или корпоратив. Чуду и хинкал, мангал
+        на живом угле, оформление и ведущий — берём организацию на себя.
+      </p>
+      <div class="ev-hero__cta" zestReveal [zestReveal]="120">
+        <a class="btn" href="#event-form">Оставить заявку</a>
+        <a class="btn btn--ghost" [href]="'tel:' + phoneHref()">Позвонить: {{ phone() }}</a>
+      </div>
+    </div>
+
+    <figure class="ev-hero__figure" zestReveal [zestReveal]="60">
+      <img [src]="heroShot" alt="Оформленный зал Zest Resto для торжества" />
+    </figure>
+  </div>
+</section>
+
+<div class="ornament-band" aria-hidden="true"></div>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="head">
+      <div>
+        <p class="eyebrow" zestReveal>Поводы</p>
+        <h2 zestReveal [zestReveal]="40">Что можно провести</h2>
+      </div>
+    </div>
+
+    <ul class="occasions">
+      @for (event of events(); track event.id; let i = $index) {
+        <li class="occasion" zestReveal [zestReveal]="i * 50">
+          <span class="occasion__mark" aria-hidden="true"></span>
+          <h3>{{ event.title }}</h3>
+          <p>{{ event.text }}</p>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="section section--dark">
+  <div class="container included__grid">
+    <div>
+      <p class="eyebrow" zestReveal>Организация</p>
+      <h2 zestReveal [zestReveal]="40">Что мы берём на себя</h2>
+      <ul class="included__list" zestReveal [zestReveal]="80">
+        @for (row of included; track row.title) {
+          <li>
+            <strong>{{ row.title }}</strong>
+            <span>{{ row.text }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <figure class="included__figure" zestReveal [zestReveal]="60">
+      <img [src]="guestsShot" alt="Гости с букетами в зале Zest Resto" loading="lazy" />
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="head">
+      <div>
+        <p class="eyebrow" zestReveal>Как это работает</p>
+        <h2 zestReveal [zestReveal]="40">Четыре шага до праздника</h2>
+      </div>
+    </div>
+
+    <ol class="steps">
+      @for (step of steps; track step.n; let i = $index) {
+        <li class="step" zestReveal [zestReveal]="i * 60">
+          <span class="step__num">{{ step.n }}</span>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.text }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<section class="section event-form" id="event-form">
+  <div class="container event-form__grid">
+    <div class="event-form__text">
+      <p class="eyebrow" zestReveal>Заявка</p>
+      <h2 zestReveal [zestReveal]="40">Расскажите про ваш праздник</h2>
+      <p class="lead" zestReveal [zestReveal]="80">
+        Чем больше деталей — тем точнее предложение. Перезвоним в течение дня.
+      </p>
+      <figure class="event-form__figure" zestReveal [zestReveal]="120">
+        <img [src]="tableShot" alt="Сервированный стол в зале Zest Resto" loading="lazy" />
+      </figure>
+    </div>
+
+    <form class="form" (ngSubmit)="submit()" zestReveal [zestReveal]="60">
+      @if (sent()) {
+        <div class="form__done">
+          <h3>Заявка отправлена</h3>
+          <p>
+            {{ form().name || 'Гость' }}, спасибо. Свяжемся по номеру
+            {{ form().phone || 'указанному телефону' }} и обсудим детали.
+          </p>
+          <button type="button" class="btn btn--ghost" (click)="sent.set(false)">Отправить ещё одну</button>
+        </div>
+      } @else {
+        <div class="form__row">
+          <label class="field">
+            <span class="field__label">Имя</span>
+            <input type="text" name="name" placeholder="Как к вам обращаться"
+              [ngModel]="form().name" (ngModelChange)="setField('name', $event)" required />
+          </label>
+          <label class="field">
+            <span class="field__label">Телефон</span>
+            <input type="tel" name="phone" placeholder="+7 ___ ___-__-__"
+              [ngModel]="form().phone" (ngModelChange)="setField('phone', $event)" required />
+          </label>
+        </div>
+
+        <div class="form__row">
+          <label class="field">
+            <span class="field__label">Дата</span>
+            <input type="date" name="date" [ngModel]="form().date" (ngModelChange)="setField('date', $event)" />
+          </label>
+          <label class="field">
+            <span class="field__label">Гостей</span>
+            <input type="number" name="guests" min="1" max="200" placeholder="например, 30"
+              [ngModel]="form().guests" (ngModelChange)="setField('guests', $event)" />
+          </label>
+        </div>
+
+        <label class="field">
+          <span class="field__label">Повод</span>
+          <select name="occasion" [ngModel]="form().occasion" (ngModelChange)="setField('occasion', $event)">
+            @for (option of occasions; track option) {
+              <option [value]="option">{{ option }}</option>
+            }
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="field__label">Детали</span>
+          <textarea rows="4" name="note" placeholder="Пожелания по залу, меню, оформлению"
+            [ngModel]="form().note" (ngModelChange)="setField('note', $event)"></textarea>
+        </label>
+
+        <button type="submit" class="btn btn--block">Отправить заявку</button>
+        <p class="form__small">Форма демонстрационная: заявка не уходит на сервер</p>
+      }
+    </form>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container back-home">
+    <p class="eyebrow" zestReveal>Дальше</p>
+    <h2 zestReveal [zestReveal]="40">Соберём банкет из горской классики под ваш бюджет</h2>
+    <div class="back-home__cta" zestReveal [zestReveal]="80">
+      <a class="btn" routerLink="/menu" [queryParams]="{ tag: 'national' }">Смотреть горскую кухню</a>
+      <a class="btn btn--ghost" routerLink="/">На главную</a>
+    </div>
+  </div>
+</section>

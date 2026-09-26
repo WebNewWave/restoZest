@@ -1,0 +1,94 @@
+<header class="k-head">
+  <div class="container k-head__inner">
+    <div class="k-head__brand">
+      <span class="k-head__mark">Zest</span>
+      <span class="k-head__sub">Экран кухни</span>
+    </div>
+
+    <div class="k-head__meta">
+      <span class="k-head__chip" [class.k-head__chip--demo]="orders.mode === 'demo'">
+        {{ orders.mode === 'supabase' ? 'Supabase подключён' : 'Демо-режим' }}
+      </span>
+      <span class="k-head__chip k-head__chip--accent">В работе: {{ activeCount() }}</span>
+      <span class="k-head__chip">Заказов сегодня: {{ totalToday() }}</span>
+      <a class="k-head__link" routerLink="/">На сайт</a>
+    </div>
+  </div>
+</header>
+
+@if (orders.mode === 'demo') {
+  <div class="notice">
+    <div class="container">
+      <p>
+        Демонстрационный режим: заказы приходят из соседней вкладки. Откройте
+        <a routerLink="/t/7" target="_blank">страницу стола №7</a>, оформите заказ — он появится
+        здесь автоматически. Чтобы принимать настоящие заказы, подключите Supabase.
+      </p>
+    </div>
+  </div>
+}
+
+<main class="board">
+  <div class="container board__grid">
+    @for (column of columns(); track column.id) {
+      <section class="col" [class.col--new]="column.id === 'new'">
+        <header class="col__head">
+          <h2>{{ column.title }}</h2>
+          <span class="col__count">{{ column.items.length }}</span>
+        </header>
+        <p class="col__hint">{{ column.hint }}</p>
+
+        <div class="col__body">
+          @if (!column.items.length) {
+            <p class="col__empty">Пусто</p>
+          }
+
+          @for (order of column.items; track order.id) {
+            <article class="ticket" [class.ticket--late]="isLate(order)">
+              <header class="ticket__head">
+                <span class="ticket__table">Стол №{{ order.table }}</span>
+                <span class="ticket__time">{{ time(order.createdAt) }} · {{ elapsed(order) }}</span>
+              </header>
+
+              @if (hasNational(order)) {
+                <p class="ticket__flag">
+                  <span class="ticket__flag-mark" aria-hidden="true"></span>
+                  есть горская классика
+                </p>
+              }
+
+              <ul class="ticket__lines">
+                @for (line of order.lines; track line.item.id) {
+                  <li>
+                    <span class="ticket__qty">{{ line.qty }}×</span>
+                    <span class="ticket__name">{{ line.item.name }}</span>
+                    <span class="ticket__sum">{{ price()(line.item.price * line.qty) }}</span>
+                  </li>
+                }
+              </ul>
+
+              @if (order.comment) {
+                <p class="ticket__comment">Пожелание: {{ order.comment }}</p>
+              }
+
+              <footer class="ticket__foot">
+                <span class="ticket__total">{{ itemsLabel(order) }} · {{ price()(order.total) }}</span>
+                <div class="ticket__actions">
+                  @if (next(order.status); as target) {
+                    <button type="button" class="btn btn--sm" (click)="advance(order)">
+                      {{ target === 'cooking' ? 'Начать готовить' : 'Подано' }}
+                    </button>
+                  } @else if (order.status === 'served') {
+                    <button type="button" class="btn btn--quiet btn--sm" (click)="markPaid(order)">
+                      Оплачено
+                    </button>
+                  }
+                </div>
+              </footer>
+            </article>
+          }
+        </div>
+      </section>
+    }
+  </div>
+</main>

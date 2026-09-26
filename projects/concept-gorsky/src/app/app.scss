@@ -1,0 +1,52 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+}
+
+.skip {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  translate: -50% -130%;
+  z-index: 100;
+  padding: 0.7rem 1.2rem;
+  background: var(--clay-700);
+  color: var(--sand-50);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  font-size: var(--step--1);
+  transition: translate var(--dur) var(--ease-out);
+}
+
+.skip:focus-visible {
+  translate: -50% 0;
+}
+
+/* Всплывающее подтверждение действия: «заказ отправлен», «заявка принята». */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: clamp(1.2rem, 4vw, 2.4rem);
+  translate: -50% 0;
+  z-index: 90;
+  max-width: min(92vw, 30rem);
+  padding: 0.85rem 1.35rem;
+  background: var(--forest-800);
+  color: var(--sand-100);
+  border-radius: var(--radius-sm);
+  font-size: var(--step--1);
+  font-weight: 500;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  animation: toast-in var(--dur) var(--ease-out);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    translate: -50% 14px;
+  }
+  to {
+    opacity: 1;
+    translate: -50% 0;
+  }
+}

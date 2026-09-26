@@ -1,0 +1,48 @@
+<article
+  class="dish"
+  [class.dish--national]="isNational()"
+  [class.dish--picked]="qty() > 0"
+>
+  <div class="dish__main">
+    <div class="dish__title">
+      @if (isNational()) {
+        <span class="dish__mark" aria-hidden="true"></span>
+      }
+      <h3 class="dish__name">{{ item().name }}</h3>
+      @if (item().hit) {
+        <span class="dish__hit">выбор гостей</span>
+      }
+    </div>
+
+    @if (item().tags?.length) {
+      <ul class="dish__tags">
+        @for (tag of item().tags; track tag) {
+          <li class="tag" [class.tag--national]="tag === 'национальное'">{{ tag }}</li>
+        }
+      </ul>
+    }
+  </div>
+
+  <div class="dish__side">
+    <span class="dish__price">{{ priceText() }}</span>
+
+    @if (qty() > 0) {
+      <div class="stepper">
+        <button type="button" (click)="cart.dec(item().id)" aria-label="Убрать одну порцию">−</button>
+        <span>{{ qty() }}</span>
+        <button type="button" (click)="cart.add(item())" aria-label="Добавить одну порцию">+</button>
+      </div>
+    } @else {
+      <button
+        type="button"
+        class="add"
+        (click)="cart.add(item())"
+        [attr.aria-label]="'Добавить в заказ: ' + item().name"
+      >
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <path d="M12 6v12M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+    }
+  </div>
+</article>

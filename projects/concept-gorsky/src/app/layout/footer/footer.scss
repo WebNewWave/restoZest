@@ -1,0 +1,137 @@
+:host {
+  display: block;
+  background: var(--forest-800);
+  color: var(--sand-200);
+}
+
+.ftr__top {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+  padding-block: clamp(2.5rem, 2rem + 3vw, 4.5rem) clamp(1.5rem, 1rem + 2vw, 2.5rem);
+}
+
+/* ---------- Бренд ---------- */
+
+.ftr__brand {
+  display: grid;
+  align-content: start;
+  gap: 0.3rem;
+}
+
+.ftr__mark {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1;
+  color: var(--sand-100);
+}
+
+.ftr__sub {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ochre-400);
+}
+
+.ftr__tagline {
+  margin-top: 0.7rem;
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: rgba(244, 234, 216, 0.66);
+  max-width: 34ch;
+}
+
+.ftr__ig {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--sand-200);
+  transition: color var(--dur) var(--ease-out);
+}
+
+.ftr__ig:hover {
+  color: var(--ochre-400);
+}
+
+/* ---------- Колонки ---------- */
+
+.ftr__col {
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+}
+
+.ftr__col h4 {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ochre-400);
+  margin-bottom: 0.3rem;
+}
+
+.ftr__col a,
+.ftr__col span {
+  font-size: var(--step--1);
+  color: rgba(244, 234, 216, 0.82);
+  line-height: 1.5;
+  width: fit-content;
+}
+
+.ftr__col a {
+  transition: color var(--dur) var(--ease-out);
+}
+
+.ftr__col a:hover {
+  color: var(--ochre-400);
+}
+
+.ftr__muted {
+  color: rgba(244, 234, 216, 0.5) !important;
+}
+
+/* ---------- Нижняя полоса ---------- */
+
+.ftr__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-block: 1.1rem;
+  border-top: 1px solid rgba(244, 234, 216, 0.14);
+  font-size: var(--step--1);
+  color: rgba(244, 234, 216, 0.52);
+}
+
+.ftr__note {
+  color: rgba(244, 234, 216, 0.36);
+}
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 980px) {
+  .ftr__top {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .ftr__top {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .ftr__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+}

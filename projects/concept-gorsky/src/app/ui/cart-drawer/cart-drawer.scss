@@ -1,0 +1,275 @@
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(36, 28, 21, 0.42);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur) var(--ease-out);
+}
+
+.scrim.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 85;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 27rem);
+  height: 100dvh;
+  background: var(--sand-100);
+  border-left: 1px solid var(--line);
+  translate: 102% 0;
+  visibility: hidden;
+  transition: translate var(--dur) var(--ease-out), visibility var(--dur);
+}
+
+.drawer.is-open {
+  translate: 0 0;
+  visibility: visible;
+}
+
+/* ---------- Шапка ---------- */
+
+.drawer__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--sand-50);
+}
+
+.drawer__table {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 750;
+  margin-top: 0.15rem;
+}
+
+.drawer__band {
+  opacity: 0.7;
+}
+
+.drawer__close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong);
+  color: var(--ink-700);
+  transition: border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+}
+
+.drawer__close:hover {
+  border-color: var(--clay-700);
+  color: var(--clay-700);
+}
+
+/* ---------- Тело ---------- */
+
+.drawer__body {
+  flex: 1;
+  overflow-y: auto;
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding: 1.25rem;
+  overscroll-behavior: contain;
+}
+
+.lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.line {
+  display: grid;
+  gap: 0.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.line:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.line__info {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.line__name {
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.line__unit {
+  font-size: var(--step--1);
+  color: var(--ink-400);
+}
+
+.line__side {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.line__sum {
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  font-weight: 750;
+  color: var(--clay-800);
+  font-variant-numeric: tabular-nums;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0.15rem;
+  border-radius: var(--radius-sm);
+  background: var(--clay-700);
+  color: var(--sand-50);
+}
+
+.stepper button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-xs);
+  font-size: 1.05rem;
+  line-height: 1;
+  color: inherit;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.stepper button:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.stepper span {
+  min-width: 1.6rem;
+  text-align: center;
+  font-size: var(--step--1);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.error {
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm);
+  background: var(--clay-200);
+  color: var(--clay-800);
+  font-size: var(--step--1);
+}
+
+/* ---------- Пусто и готово ---------- */
+
+.empty,
+.done {
+  display: grid;
+  justify-items: start;
+  gap: 0.6rem;
+  padding-block: 2rem;
+}
+
+.empty__title,
+.done__title {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 750;
+}
+
+.empty__text,
+.done__text {
+  font-size: var(--step-0);
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+
+.done__hint {
+  font-size: var(--step--1);
+  color: var(--ink-400);
+  line-height: 1.55;
+  margin-bottom: 0.5rem;
+}
+
+.done__ring {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(78, 124, 93, 0.16);
+  color: var(--forest-600);
+  margin-bottom: 0.4rem;
+}
+
+/* ---------- Подвал ---------- */
+
+.drawer__foot {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1.1rem 1.25rem calc(1.1rem + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  background: var(--sand-50);
+}
+
+.total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.total span {
+  font-size: var(--step--1);
+  color: var(--ink-500);
+}
+
+.total strong {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 800;
+  color: var(--clay-800);
+  font-variant-numeric: tabular-nums;
+}
+
+.drawer__note {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--ink-400);
+}
+
+@media (max-width: 560px) {
+  .drawer {
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: min(88dvh, 46rem);
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    translate: 0 102%;
+  }
+
+  .drawer.is-open {
+    translate: 0 0;
+  }
+}
