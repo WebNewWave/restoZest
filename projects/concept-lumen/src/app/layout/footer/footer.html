@@ -1,0 +1,56 @@
+<footer class="ftr">
+  <div class="container ftr__top">
+    <div class="ftr__brand">
+      <span class="ftr__mark">Zest</span>
+      <span class="ftr__sub">Resto</span>
+      <p class="ftr__tagline">
+        Ресторан европейской и кавказской кухни в Махачкале. Мангал на живом угле, завтраки
+        и заказ со стола по QR-коду.
+      </p>
+      <a
+        class="ftr__ig"
+        [href]="data()?.contacts?.instagram"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" />
+        </svg>
+        {{ data()?.brand?.handle }}
+      </a>
+    </div>
+
+    <nav class="ftr__col" aria-label="Разделы сайта">
+      <h4>Разделы</h4>
+      <a routerLink="/menu">Меню и цены</a>
+      <a routerLink="/" fragment="qr">Заказ со стола</a>
+      <a routerLink="/" fragment="delivery">Доставка и самовывоз</a>
+      <a routerLink="/events">Банкеты и торжества</a>
+      <a routerLink="/kitchen">Экран кухни</a>
+    </nav>
+
+    <nav class="ftr__col" aria-label="Категории меню">
+      <h4>Из меню</h4>
+      @for (cat of topCategories(); track cat.id) {
+        <a routerLink="/menu" [fragment]="'cat-' + cat.id">{{ cat.name }}</a>
+      }
+      <a class="ftr__more" routerLink="/menu">Все {{ positions() }} позиций →</a>
+    </nav>
+
+    <div class="ftr__col">
+      <h4>Контакты</h4>
+      <a [href]="'tel:' + (data()?.contacts?.phoneHref ?? '')">{{ data()?.contacts?.phone }}</a>
+      <span>{{ data()?.contacts?.address }}</span>
+      <span class="ftr__muted">{{ data()?.contacts?.landmark }}</span>
+      <span class="ftr__muted">Ежедневно {{ data()?.hours?.everyday }}</span>
+      <span class="ftr__muted">Завтраки {{ data()?.hours?.breakfast }}</span>
+    </div>
+  </div>
+
+  <div class="container ftr__bottom">
+    <span>© {{ year }} Zest Resto. Махачкала, ул. Красноярская, 5</span>
+    <span class="ftr__note">Демонстрационный концепт сайта «Lumen»</span>
+  </div>
+</footer>

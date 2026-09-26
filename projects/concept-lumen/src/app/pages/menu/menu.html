@@ -1,0 +1,120 @@
+<section class="page-head">
+  <div class="container">
+    <p class="eyebrow" zestReveal>Меню и цены</p>
+    <h1 zestReveal [zestReveal]="40">Всё меню ресторана</h1>
+    <p class="lead" zestReveal [zestReveal]="80">
+      {{ positions() }} позиций в {{ categories().length }} разделах: завтраки, мангал на живом угле,
+      пицца и роллы, домашняя паста, дагестанская классика, десерты и напитки.
+    </p>
+  </div>
+</section>
+
+<div class="toolbar">
+  <div class="container toolbar__inner">
+    <label class="search">
+      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.7" />
+        <path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+      </svg>
+      <input
+        type="search"
+        placeholder="Найти блюдо: чуду, стейк, том ям…"
+        [ngModel]="query()"
+        (ngModelChange)="query.set($event)"
+        aria-label="Поиск по меню"
+      />
+      @if (query()) {
+        <button type="button" (click)="query.set('')" aria-label="Очистить поиск">×</button>
+      }
+    </label>
+
+    <div class="chips-scroll" role="tablist" aria-label="Категории меню">
+      <button
+        type="button"
+        class="chip-filter"
+        role="tab"
+        [class.is-active]="active() === 'all'"
+        [attr.aria-selected]="active() === 'all'"
+        (click)="pick('all')"
+      >Всё меню</button>
+      @for (cat of categories(); track cat.id) {
+        <button
+          type="button"
+          class="chip-filter"
+          role="tab"
+          [class.is-active]="active() === cat.id"
+          [attr.aria-selected]="active() === cat.id"
+          (click)="pick(cat.id)"
+        >{{ cat.name }}</button>
+      }
+    </div>
+  </div>
+</div>
+
+<section class="section section--tight">
+  <div class="container">
+    @if (loading()) {
+      <p class="state">Загружаем меню…</p>
+    } @else if (found() === 0) {
+      <div class="state">
+        <p class="state__title">Ничего не нашлось</p>
+        <p>Попробуйте другое слово или откройте всё меню.</p>
+        <button type="button" class="btn btn--ghost" (click)="clearSearch()">Показать всё меню</button>
+      </div>
+    } @else {
+      @if (query()) {
+        <p class="found">
+          {{ foundLabel() }} по запросу «{{ query() }}»
+          <button type="button" class="found__reset" (click)="clearSearch()">сбросить</button>
+        </p>
+      }
+
+      <div class="layout">
+        <nav class="side" aria-label="Разделы меню">
+          <p class="side__title">Разделы</p>
+          <ul class="side__list">
+            @for (cat of visible(); track cat.id) {
+              <li>
+                <button type="button" (click)="scrollTo(cat.id)">
+                  <span>{{ cat.name }}</span>
+                  <span class="side__count">{{ cat.items.length }}</span>
+                </button>
+              </li>
+            }
+          </ul>
+        </nav>
+
+        <div class="cats">
+          @for (cat of visible(); track cat.id) {
+            <section class="cat" [id]="'cat-' + cat.id" zestReveal>
+              <header class="cat__head">
+                <h2>{{ cat.name }}</h2>
+                <span class="cat__count">{{ cat.items.length }}</span>
+              </header>
+              @if (cat.note) {
+                <p class="cat__note">{{ cat.note }}</p>
+              }
+              <div class="cat__items">
+                @for (item of cat.items; track item.id) {
+                  <zest-dish [item]="item" [currency]="currency()" />
+                }
+              </div>
+            </section>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+@if (cart.count() > 0) {
+  <div class="cart-bar">
+    <div class="container cart-bar__inner">
+      <div class="cart-bar__info">
+        <span class="cart-bar__count">{{ cart.count() }}</span>
+        <span class="cart-bar__total">{{ price()(cart.total()) }}</span>
+      </div>
+      <button type="button" class="btn btn--gold" (click)="ui.openCart()">Открыть заказ</button>
+    </div>
+  </div>
+}

@@ -1,0 +1,390 @@
+/* ==========================================================================
+   Экран гостя, открытый по QR-коду со стола. Один стол — один адрес.
+   ========================================================================== */
+
+.tbl-head {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(251, 250, 247, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.tbl-head__inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: var(--header-h);
+}
+
+.tbl-head__brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.tbl-head__sub {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-400);
+}
+
+/* Номер стола — самое важное на этом экране, поэтому вынесен в центр шапки. */
+.tbl-head__table {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin-inline: auto;
+  padding: 0.35rem 0.9rem;
+  background: var(--ink-900);
+  color: var(--paper-0);
+  border-radius: var(--radius-pill);
+}
+
+.tbl-head__label {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.tbl-head__table strong {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.tbl-head__call {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-700);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--dur) var(--ease-out);
+}
+
+.tbl-head__call:hover {
+  color: var(--gold-700);
+}
+
+/* ---------- Вступление ---------- */
+
+.tbl-intro {
+  padding-block: clamp(1.5rem, 1rem + 2.5vw, 2.75rem) 1.25rem;
+}
+
+.tbl-intro h1 {
+  margin-block: 0.5rem 0.6rem;
+}
+
+/* ---------- Мои заказы ---------- */
+
+.my-orders {
+  padding-bottom: 1.25rem;
+}
+
+.my-orders__title {
+  font-size: var(--step-0);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-400);
+  margin-bottom: 0.6rem;
+}
+
+.my-orders__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 0.6rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.my-order {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.75rem 0.9rem;
+  background: var(--gold-100);
+  border: 1px solid var(--gold-200);
+  border-radius: var(--radius);
+}
+
+.my-order--done {
+  background: var(--green-100);
+  border-color: #cfe3d7;
+}
+
+.my-order__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.my-order__status {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold-700);
+}
+
+.my-order--done .my-order__status {
+  color: var(--green-600);
+}
+
+.my-order__time {
+  font-size: 0.72rem;
+  color: var(--ink-400);
+  font-variant-numeric: tabular-nums;
+}
+
+.my-order__items {
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-700);
+}
+
+/* ---------- Панель поиска ---------- */
+
+.toolbar {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 40;
+  background: rgba(251, 250, 247, 0.94);
+  backdrop-filter: blur(12px);
+  border-block: 1px solid var(--line);
+}
+
+.toolbar__inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 0.7rem;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex: none;
+  width: min(20rem, 38%);
+  padding: 0.15rem 0.75rem;
+  background: var(--paper-0);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--dur) var(--ease-out);
+}
+
+.search:focus-within {
+  border-color: var(--ink-900);
+}
+
+.search svg {
+  flex: none;
+  color: var(--ink-400);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding-block: 0.5rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--step--1);
+  color: var(--ink-900);
+}
+
+.search input:focus {
+  outline: none;
+}
+
+.search input::placeholder {
+  color: var(--ink-300);
+}
+
+.chips-scroll {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: 0.15rem;
+  mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 1.5rem), transparent 100%);
+}
+
+.chips-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.chip-filter {
+  flex: none;
+  padding: 0.42rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--paper-0);
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-500);
+  white-space: nowrap;
+  transition: background-color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out);
+}
+
+.chip-filter:hover {
+  border-color: var(--ink-900);
+  color: var(--ink-900);
+}
+
+.chip-filter.is-active {
+  background: var(--ink-900);
+  border-color: var(--ink-900);
+  color: var(--paper-0);
+}
+
+/* ---------- Меню стола ---------- */
+
+.tbl-menu {
+  padding-block: clamp(1.5rem, 1.2rem + 2vw, 2.5rem) 7rem;
+}
+
+.cats {
+  display: grid;
+  gap: clamp(1.75rem, 2.5vw, 2.75rem);
+}
+
+.cat__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.35rem;
+  border-bottom: 1.5px solid var(--ink-900);
+}
+
+.cat__head h2 {
+  font-size: var(--step-2);
+  letter-spacing: -0.03em;
+}
+
+.cat__note {
+  font-size: var(--step--1);
+  color: var(--ink-400);
+}
+
+.cat__count {
+  margin-inline-start: auto;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-400);
+  font-variant-numeric: tabular-nums;
+}
+
+.cat__items {
+  display: grid;
+}
+
+/* ---------- Нижняя панель заказа ---------- */
+
+.cart-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  background: var(--ink-900);
+  color: var(--paper-0);
+  box-shadow: 0 -12px 34px -20px rgba(23, 22, 20, 0.6);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.cart-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.75rem;
+}
+
+.cart-bar__info {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.cart-bar__hint {
+  font-size: var(--step--1);
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.cart-bar__count {
+  display: grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  padding-inline: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--gold-500);
+  color: var(--ink-900);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.cart-bar__total {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.cart-bar__table {
+  font-size: var(--step--1);
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.cart-bar .btn--gold {
+  --btn-fg: var(--ink-900);
+}
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 760px) {
+  .tbl-head__call span {
+    display: none;
+  }
+
+  .toolbar__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .search {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-bar__inner {
+    gap: 0.6rem;
+  }
+
+  .cart-bar__table {
+    display: none;
+  }
+}

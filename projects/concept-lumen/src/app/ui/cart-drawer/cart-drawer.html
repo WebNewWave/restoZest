@@ -1,0 +1,131 @@
+<div
+  class="scrim"
+  [class.is-open]="ui.cartOpen()"
+  (click)="close()"
+  aria-hidden="true"
+></div>
+
+<aside
+  class="drawer"
+  [class.is-open]="ui.cartOpen()"
+  role="dialog"
+  aria-label="Ваш заказ"
+  [attr.aria-hidden]="!ui.cartOpen()"
+>
+  <header class="drawer__head">
+    <div>
+      <p class="eyebrow">Ваш заказ</p>
+      @if (tableLabel()) {
+        <p class="drawer__table">{{ tableLabel() }}</p>
+      }
+    </div>
+    <button type="button" class="drawer__close" (click)="close()" aria-label="Закрыть">
+      <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+    </button>
+  </header>
+
+  <div class="drawer__body">
+    @if (placed(); as order) {
+      <div class="done">
+        <div class="done__ring" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28">
+            <path
+              d="M5 12.5l4.2 4.3L19 7"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <h3 class="done__title">Заказ принят</h3>
+        <p class="done__text">
+          {{ tableLabel() }} · {{ order.lines.length }} позиций на {{ price()(order.total) }}
+        </p>
+        <p class="done__hint">
+          Кухня уже видит состав и номер стола. Официант подойдёт, чтобы подтвердить подачу.
+        </p>
+        <button type="button" class="btn btn--ghost btn--block" (click)="reset()">
+          Добавить ещё
+        </button>
+      </div>
+    } @else if (cart.isEmpty()) {
+      <div class="empty">
+        <p class="empty__title">Пока пусто</p>
+        <p class="empty__text">
+          Откройте меню и добавьте блюда — они появятся здесь вместе с суммой.
+        </p>
+        <a class="btn btn--ghost" routerLink="/menu" (click)="close()">Перейти в меню</a>
+      </div>
+    } @else {
+      <ul class="lines">
+        @for (line of cart.lines(); track line.item.id) {
+          <li class="line">
+            <div class="line__info">
+              <span class="line__name">{{ line.item.name }}</span>
+              <span class="line__unit">{{ price()(line.item.price) }} за порцию</span>
+            </div>
+            <div class="line__side">
+              <div class="stepper">
+                <button type="button" (click)="cart.dec(line.item.id)" aria-label="Убрать одну порцию">−</button>
+                <span>{{ line.qty }}</span>
+                <button type="button" (click)="add(line.item.id)" aria-label="Добавить одну порцию">+</button>
+              </div>
+              <span class="line__sum">{{ price()(line.item.price * line.qty) }}</span>
+            </div>
+          </li>
+        }
+      </ul>
+
+      @if (!cart.table()) {
+        <label class="field">
+          <span class="field__label">Номер стола</span>
+          <input
+            type="text"
+            inputmode="numeric"
+            placeholder="например, 7"
+            [ngModel]="tableDraft()"
+            (ngModelChange)="tableDraft.set($event)"
+            name="table"
+          />
+        </label>
+      }
+
+      <label class="field">
+        <span class="field__label">Пожелание к заказу</span>
+        <textarea
+          rows="3"
+          placeholder="Без лука, прожарка medium, подать к десерту…"
+          [ngModel]="comment()"
+          (ngModelChange)="comment.set($event)"
+          name="comment"
+        ></textarea>
+      </label>
+
+      @if (error(); as message) {
+        <p class="error">{{ message }}</p>
+      }
+    }
+  </div>
+
+  @if (!placed() && !cart.isEmpty()) {
+    <footer class="drawer__foot">
+      <div class="total">
+        <span>Итого</span>
+        <strong>{{ price()(cart.total()) }}</strong>
+      </div>
+      <p class="drawer__note">{{ deliveryNote() }}</p>
+      <button
+        type="button"
+        class="btn btn--block"
+        [disabled]="!canSubmit() || submitting()"
+        (click)="submit()"
+      >
+        {{ submitting() ? 'Отправляем…' : 'Отправить на кухню' }}
+      </button>
+    </footer>
+  }
+</aside>

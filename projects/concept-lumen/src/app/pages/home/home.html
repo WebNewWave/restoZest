@@ -1,0 +1,366 @@
+<!-- ================= ПЕРВЫЙ ЭКРАН: СРАЗУ МЕНЮ ================= -->
+<section class="hero">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <p class="eyebrow" zestReveal>Махачкала · ул. Красноярская, 5</p>
+      <h1 class="hero__title" zestReveal [zestReveal]="50">
+        Всё меню с ценами.<br />
+        Заказ со стола — за три касания
+      </h1>
+      <p class="lead" zestReveal [zestReveal]="100">
+        Европейская и кавказская кухня: мангал на живом угле, домашняя паста, чуду и хинкал.
+        {{ positions() }} позиций — ищите, добавляйте, отправляйте на кухню.
+      </p>
+
+      <form class="finder" (ngSubmit)="search()" zestReveal [zestReveal]="150" role="search">
+        <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true">
+          <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.7" />
+          <path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+        </svg>
+        <input
+          type="search"
+          name="q"
+          placeholder="Найти блюдо: чуду, стейк, том ям…"
+          [ngModel]="query()"
+          (ngModelChange)="query.set($event)"
+          aria-label="Поиск по меню"
+        />
+        <button type="submit" class="btn">Найти</button>
+      </form>
+
+      <ul class="hero__chips" zestReveal [zestReveal]="200">
+        @for (cat of categories().slice(0, 6); track cat.id) {
+          <li>
+            <button type="button" class="chip" (click)="openCategory(cat.id)">
+              {{ cat.name }}
+              <span>{{ cat.items.length }}</span>
+            </button>
+          </li>
+        }
+      </ul>
+
+      <div class="hero__cta" zestReveal [zestReveal]="240">
+        <a class="btn" routerLink="/menu">Открыть всё меню</a>
+        <a class="btn btn--ghost" routerLink="/t/7">Заказать со стола</a>
+      </div>
+    </div>
+
+    <dl class="facts" zestReveal [zestReveal]="120">
+      @for (fact of facts(); track fact.label) {
+        <div class="facts__item">
+          <dt>{{ fact.label }}</dt>
+          <dd>{{ fact.value }}</dd>
+        </div>
+      }
+    </dl>
+  </div>
+</section>
+
+<!-- ================= ХИТЫ: МОЖНО ЗАКАЗАТЬ СРАЗУ ================= -->
+<section class="section section--tight hits">
+  <div class="container">
+    <div class="head">
+      <div>
+        <p class="eyebrow" zestReveal>Заказывают чаще всего</p>
+        <h2 zestReveal [zestReveal]="50">Хиты меню с ценами</h2>
+      </div>
+      <a class="head__link" routerLink="/menu" zestReveal [zestReveal]="100">
+        Все {{ positions() }} позиций
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+          <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+
+    @if (loading()) {
+      <p class="state">Загружаем меню…</p>
+    } @else {
+      <div class="hits__list">
+        @for (item of hits(); track item.id) {
+          <zest-dish [item]="item" [currency]="currency()" />
+        }
+      </div>
+      <p class="hits__note" zestReveal>
+        Добавляйте блюда прямо здесь — корзина посчитает сумму. Оформить можно со стола или
+        в общем меню.
+      </p>
+    }
+  </div>
+</section>
+
+<!-- ================= КАТЕГОРИИ ================= -->
+<section class="section categories" id="menu-map">
+  <div class="container">
+    <div class="head">
+      <div>
+        <p class="eyebrow" zestReveal>Разделы меню</p>
+        <h2 zestReveal [zestReveal]="50">Перейти сразу к нужному</h2>
+      </div>
+    </div>
+
+    <ul class="cats-grid">
+      @for (cat of categoryCards(); track cat.id; let i = $index) {
+        <li class="cat-card" zestReveal [zestReveal]="(i % 4) * 50">
+          <button type="button" (click)="openCategory(cat.id)">
+            <div class="cat-card__top">
+              <h3>{{ cat.name }}</h3>
+              <span class="cat-card__count">{{ cat.count }}</span>
+            </div>
+            <p class="cat-card__sample">{{ cat.sample }}</p>
+            <p class="cat-card__from">от {{ price()(cat.from) }}</p>
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- ================= ЗАЛ И КУХНЯ ================= -->
+<section class="section section--sunken about" id="about">
+  <div class="container about__grid">
+    <div class="about__text">
+      <p class="eyebrow" zestReveal>О ресторане</p>
+      <h2 zestReveal [zestReveal]="50">Мангал на живом угле, кабины и летняя терраса</h2>
+      <p class="lead" zestReveal [zestReveal]="100">
+        Zest — ресторан европейской и кавказской кухни. Здесь одинаково уместно зайти на завтрак,
+        провести деловую встречу или собрать близких за большим столом.
+      </p>
+
+      <ul class="chips" zestReveal [zestReveal]="150">
+        @for (feature of data()?.features ?? []; track feature) {
+          <li class="chip chip--static">{{ feature }}</li>
+        }
+      </ul>
+
+      <a class="head__link" routerLink="/events" zestReveal [zestReveal]="200">
+        Банкеты и торжества
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+          <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+
+    <ul class="atmo">
+      @for (shot of atmosphere; track shot.src; let i = $index) {
+        <li class="atmo__item" zestReveal [zestReveal]="(i % 2) * 70">
+          <img [src]="shot.src" [alt]="shot.alt" loading="lazy" />
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- ================= ДОСТАВКА И САМОВЫВОЗ ================= -->
+<section class="section delivery" id="delivery">
+  <div class="container delivery__grid">
+    <figure class="delivery__figure" zestReveal>
+      <img [src]="deliveryShot" alt="Стейк Томагавк на деревянной доске" loading="lazy" />
+    </figure>
+
+    <div class="delivery__text">
+      <p class="eyebrow" zestReveal>Доставка и самовывоз</p>
+      <h2 zestReveal [zestReveal]="50">Не хотите ждать столик — заберите с собой</h2>
+      <p class="lead" zestReveal [zestReveal]="100">
+        Готовим то же меню, что и в зале. Заказ принимаем по телефону, самовывоз — с Красноярской, 5.
+        Есть кофе с собой и подарочные сертификаты.
+      </p>
+
+      <ol class="steps" zestReveal [zestReveal]="150">
+        @for (step of deliverySteps; track step.n) {
+          <li>
+            <span class="steps__num">{{ step.n }}</span>
+            <div>
+              <strong>{{ step.title }}</strong>
+              <span>{{ step.text }}</span>
+            </div>
+          </li>
+        }
+      </ol>
+
+      <div class="delivery__cta" zestReveal [zestReveal]="200">
+        <a class="btn" [href]="'tel:' + (data()?.contacts?.phoneHref ?? '')">
+          Позвонить: {{ data()?.contacts?.phone }}
+        </a>
+        <a class="btn btn--ghost" routerLink="/menu">Собрать заказ</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ЗАКАЗ ПО QR ================= -->
+<section class="section section--sunken qr" id="qr">
+  <div class="container qr__grid">
+    <div class="qr__text">
+      <p class="eyebrow" zestReveal>Заказ со стола</p>
+      <h2 zestReveal [zestReveal]="50">Отсканировали QR на столе — заказали, не дожидаясь официанта</h2>
+      <p class="lead" zestReveal [zestReveal]="100">
+        Меню открывается в браузере телефона: ничего скачивать не нужно. Гость видит цены и состав,
+        а на кухне сразу появляется номер стола и список блюд.
+      </p>
+
+      <ol class="steps" zestReveal [zestReveal]="150">
+        @for (step of qrSteps; track step.n) {
+          <li>
+            <span class="steps__num">{{ step.n }}</span>
+            <div>
+              <strong>{{ step.title }}</strong>
+              <span>{{ step.text }}</span>
+            </div>
+          </li>
+        }
+      </ol>
+
+      <div class="qr__cta" zestReveal [zestReveal]="200">
+        <a class="btn" routerLink="/t/7">Открыть стол №7</a>
+        <a class="btn btn--ghost" routerLink="/kitchen">Экран кухни</a>
+      </div>
+    </div>
+
+    <div class="qr__card" zestReveal [zestReveal]="120">
+      <div class="qr__frame">
+        <img [src]="tableQr" alt="QR-код для заказа со стола номер 7" loading="lazy" />
+      </div>
+      <p class="qr__caption">Стол №7</p>
+      <p class="qr__hint">Отсканируйте камерой телефона, чтобы открыть меню этого стола</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= БРОНЬ ================= -->
+<section class="section booking" id="booking">
+  <div class="container booking__grid">
+    <div class="booking__text">
+      <p class="eyebrow" zestReveal>Бронь стола</p>
+      <h2 zestReveal [zestReveal]="50">Оставьте заявку — перезвоним и подтвердим</h2>
+      <p class="lead" zestReveal [zestReveal]="100">
+        Скажите дату, время и повод. Если планируете торжество — подскажем по залу, оформлению
+        и банкетному меню.
+      </p>
+      <figure class="booking__figure" zestReveal [zestReveal]="150">
+        <img [src]="bookingShot" alt="Интерьер зала Zest Resto" loading="lazy" />
+      </figure>
+    </div>
+
+    <form class="form" (ngSubmit)="submitBooking()" zestReveal [zestReveal]="80">
+      @if (booked()) {
+        <div class="form__done">
+          <h3>Заявка принята</h3>
+          <p>
+            {{ booking().name || 'Гость' }}, ждём вас {{ booking().date || 'в выбранный день' }} в
+            {{ booking().time }} · {{ guestsLabel() }}
+          </p>
+          <button type="button" class="btn btn--ghost" (click)="booked.set(false)">Изменить</button>
+        </div>
+      } @else {
+        <div class="form__row">
+          <label class="field">
+            <span class="field__label">Имя</span>
+            <input
+              type="text"
+              name="name"
+              placeholder="Как к вам обращаться"
+              [ngModel]="booking().name"
+              (ngModelChange)="setField('name', $event)"
+              required
+            />
+          </label>
+          <label class="field">
+            <span class="field__label">Телефон</span>
+            <input
+              type="tel"
+              name="phone"
+              placeholder="+7 ___ ___-__-__"
+              [ngModel]="booking().phone"
+              (ngModelChange)="setField('phone', $event)"
+              required
+            />
+          </label>
+        </div>
+
+        <div class="form__row form__row--3">
+          <label class="field">
+            <span class="field__label">Дата</span>
+            <input type="date" name="date" [ngModel]="booking().date" (ngModelChange)="setField('date', $event)" />
+          </label>
+          <label class="field">
+            <span class="field__label">Время</span>
+            <input type="time" name="time" [ngModel]="booking().time" (ngModelChange)="setField('time', $event)" />
+          </label>
+          <label class="field">
+            <span class="field__label">Гостей</span>
+            <input
+              type="number"
+              name="guests"
+              min="1"
+              max="60"
+              [ngModel]="booking().guests"
+              (ngModelChange)="setField('guests', $event)"
+            />
+          </label>
+        </div>
+
+        <label class="field">
+          <span class="field__label">Повод</span>
+          <select name="occasion" [ngModel]="booking().occasion" (ngModelChange)="setField('occasion', $event)">
+            @for (option of occasions; track option) {
+              <option [value]="option">{{ option }}</option>
+            }
+          </select>
+        </label>
+
+        <button type="submit" class="btn btn--block">Забронировать стол</button>
+        <p class="form__small">Форма демонстрационная: заявка не уходит на сервер</p>
+      }
+    </form>
+  </div>
+</section>
+
+<!-- ================= КОНТАКТЫ ================= -->
+<section class="section section--sunken contacts" id="contacts">
+  <div class="container contacts__grid">
+    <div class="contacts__info">
+      <p class="eyebrow" zestReveal>Контакты</p>
+      <h2 zestReveal [zestReveal]="50">Как нас найти</h2>
+
+      <dl class="contacts__list" zestReveal [zestReveal]="100">
+        <div>
+          <dt>Адрес</dt>
+          <dd>{{ data()?.contacts?.address }}</dd>
+          <dd class="contacts__muted">{{ data()?.contacts?.landmark }}</dd>
+        </div>
+        <div>
+          <dt>Телефон</dt>
+          <dd>
+            <a [href]="'tel:' + (data()?.contacts?.phoneHref ?? '')">{{ data()?.contacts?.phone }}</a>
+          </dd>
+        </div>
+        <div>
+          <dt>Часы работы</dt>
+          <dd>Ежедневно {{ data()?.hours?.everyday }}</dd>
+          <dd class="contacts__muted">Завтраки {{ data()?.hours?.breakfast }}</dd>
+        </div>
+        <div>
+          <dt>Instagram</dt>
+          <dd>
+            <a [href]="data()?.contacts?.instagram" target="_blank" rel="noopener noreferrer">
+              {{ data()?.brand?.handle }}
+            </a>
+          </dd>
+        </div>
+      </dl>
+
+      <a class="btn" [href]="'tel:' + (data()?.contacts?.phoneHref ?? '')" zestReveal [zestReveal]="150">
+        Позвонить в ресторан
+      </a>
+    </div>
+
+    <div class="contacts__map" zestReveal [zestReveal]="80">
+      <iframe
+        title="Zest Resto на карте"
+        src="https://yandex.ru/map-widget/v1/?text=Махачкала%2C%20Красноярская%20улица%2C%205&z=16"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </div>
+</section>

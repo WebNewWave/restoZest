@@ -1,0 +1,343 @@
+/* ==========================================================================
+   Страница меню «Lumen»: слева разделы, справа плотный список с ценами.
+   ========================================================================== */
+
+.page-head {
+  padding-block: clamp(2rem, 1.5rem + 2.5vw, 3.5rem) clamp(1.25rem, 1rem + 1.5vw, 2rem);
+}
+
+.page-head h1 {
+  margin-block: 0.5rem 0.75rem;
+}
+
+/* ---------- Панель поиска и фильтров ---------- */
+
+.toolbar {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 40;
+  background: rgba(251, 250, 247, 0.94);
+  backdrop-filter: blur(12px);
+  border-block: 1px solid var(--line);
+}
+
+.toolbar__inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 0.7rem;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex: none;
+  width: min(24rem, 42%);
+  padding: 0.15rem 0.75rem;
+  background: var(--paper-0);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--dur) var(--ease-out);
+}
+
+.search:focus-within {
+  border-color: var(--ink-900);
+}
+
+.search svg {
+  flex: none;
+  color: var(--ink-400);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding-block: 0.5rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--step--1);
+  color: var(--ink-900);
+}
+
+.search input:focus {
+  outline: none;
+}
+
+.search input::placeholder {
+  color: var(--ink-300);
+}
+
+.search button {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-xs);
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--ink-400);
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.search button:hover {
+  background: var(--paper-2);
+  color: var(--ink-900);
+}
+
+/* ---------- Чипы категорий ---------- */
+
+.chips-scroll {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: 0.15rem;
+  mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 1.5rem), transparent 100%);
+}
+
+.chips-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.chip-filter {
+  flex: none;
+  padding: 0.42rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--paper-0);
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-500);
+  white-space: nowrap;
+  transition: background-color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out);
+}
+
+.chip-filter:hover {
+  border-color: var(--ink-900);
+  color: var(--ink-900);
+}
+
+.chip-filter.is-active {
+  background: var(--ink-900);
+  border-color: var(--ink-900);
+  color: var(--paper-0);
+}
+
+/* ---------- Результат поиска ---------- */
+
+.found {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+  font-size: var(--step--1);
+  color: var(--ink-500);
+}
+
+.found__reset {
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-900);
+  border-bottom: 1px solid var(--line-strong);
+  transition: border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+}
+
+.found__reset:hover {
+  color: var(--gold-700);
+  border-color: var(--gold-500);
+}
+
+/* ---------- Раскладка: разделы + список ---------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: start;
+}
+
+.side {
+  position: sticky;
+  top: calc(var(--header-h) + 4.5rem);
+  display: grid;
+  gap: 0.5rem;
+  max-height: calc(100dvh - var(--header-h) - 6rem);
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+}
+
+.side__title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-400);
+}
+
+.side__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.side__list button {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.4rem 0;
+  text-align: left;
+  font-size: var(--step--1);
+  color: var(--ink-500);
+  border-bottom: 1px solid transparent;
+  transition: color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+}
+
+.side__list button:hover {
+  color: var(--ink-900);
+  border-bottom-color: var(--gold-500);
+}
+
+.side__count {
+  font-size: 0.7rem;
+  color: var(--ink-300);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Разделы меню ---------- */
+
+.cats {
+  display: grid;
+  gap: clamp(2rem, 2.5vw, 3rem);
+}
+
+.cat {
+  scroll-margin-top: calc(var(--header-h) + 5rem);
+}
+
+.cat__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.35rem;
+  border-bottom: 1.5px solid var(--ink-900);
+}
+
+.cat__head h2 {
+  font-size: var(--step-2);
+  letter-spacing: -0.03em;
+}
+
+.cat__count {
+  margin-inline-start: auto;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-400);
+  font-variant-numeric: tabular-nums;
+}
+
+.cat__note {
+  font-size: var(--step--1);
+  color: var(--ink-400);
+  margin-bottom: 0.5rem;
+}
+
+.cat__items {
+  display: grid;
+}
+
+/* ---------- Плавающая корзина ---------- */
+
+.cart-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  background: var(--ink-900);
+  color: var(--paper-0);
+  box-shadow: 0 -12px 34px -20px rgba(23, 22, 20, 0.6);
+  animation: cart-in var(--dur) var(--ease-out);
+}
+
+@keyframes cart-in {
+  from {
+    translate: 0 100%;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+.cart-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.75rem;
+}
+
+.cart-bar__info {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+}
+
+.cart-bar__count {
+  display: grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  padding-inline: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--gold-500);
+  color: var(--ink-900);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.cart-bar__total {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 1000px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .side {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .toolbar__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .chips-scroll {
+    mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 1.25rem), transparent 100%);
+  }
+}

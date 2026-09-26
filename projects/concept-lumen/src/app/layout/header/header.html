@@ -1,0 +1,58 @@
+<header class="hdr" [class.is-solid]="solid()" [class.is-open]="ui.navOpen()">
+  <div class="hdr__inner container">
+    <a class="brand" routerLink="/" (click)="ui.closeNav()" aria-label="Zest Resto — на главную">
+      <span class="brand__mark">Zest</span>
+      <span class="brand__sub">Resto</span>
+    </a>
+
+    <nav class="nav" aria-label="Основная навигация">
+      @for (item of links; track item.label) {
+        <a
+          class="nav__link"
+          [routerLink]="item.link"
+          [fragment]="item.fragment"
+          (click)="ui.closeNav()"
+        >{{ item.label }}</a>
+      }
+    </nav>
+
+    <div class="hdr__actions">
+      <a class="hdr__phone" [href]="'tel:' + phoneHref()">{{ phone() }}</a>
+
+      <button
+        type="button"
+        class="icon-btn"
+        (click)="ui.openCart()"
+        [attr.aria-label]="'Открыть заказ, позиций: ' + cart.count()"
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <path
+            d="M4 6h2l1.6 9.2a2 2 0 0 0 2 1.6h6.9a2 2 0 0 0 2-1.55L20 8H7"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+          <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+        </svg>
+        @if (cart.count() > 0) {
+          <span class="icon-btn__badge">{{ cart.count() }}</span>
+        }
+      </button>
+
+      <a class="btn btn--sm hdr__cta" routerLink="/menu">Заказать</a>
+
+      <button
+        type="button"
+        class="burger"
+        [attr.aria-expanded]="ui.navOpen()"
+        aria-label="Меню навигации"
+        (click)="ui.toggleNav()"
+      >
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>

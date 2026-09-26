@@ -1,0 +1,611 @@
+/* ==========================================================================
+   Главная «Lumen»: меню и цены в первом экране, минимум декора.
+   ========================================================================== */
+
+/* ---------- Первый экран ---------- */
+
+.hero {
+  padding-block: clamp(2rem, 1.4rem + 3vw, 4rem) clamp(2.5rem, 2rem + 3vw, 4.5rem);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(1.75rem, 3vw, 3.5rem);
+  align-items: start;
+}
+
+.hero__text {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.hero__title {
+  font-size: var(--step-4);
+  letter-spacing: -0.035em;
+  max-width: 26ch;
+}
+
+/* Поиск — главный элемент первого экрана: с него начинается заказ. */
+.finder {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.4rem 0.4rem 0.4rem 1rem;
+  background: var(--paper-0);
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius);
+  transition: border-color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+}
+
+.finder:focus-within {
+  border-color: var(--ink-900);
+  box-shadow: 0 0 0 4px rgba(23, 22, 20, 0.06);
+}
+
+.finder svg {
+  flex: none;
+  color: var(--ink-400);
+}
+
+.finder input {
+  flex: 1;
+  min-width: 0;
+  padding-block: 0.7rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--step-0);
+  color: var(--ink-900);
+}
+
+.finder input:focus {
+  outline: none;
+}
+
+.finder input::placeholder {
+  color: var(--ink-300);
+}
+
+.finder input::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+.hero__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+  margin: 0.15rem 0 0;
+  padding: 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--paper-0);
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-700);
+  transition: border-color var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out);
+}
+
+.chip span {
+  font-size: 0.7rem;
+  color: var(--ink-300);
+  font-variant-numeric: tabular-nums;
+}
+
+button.chip:hover {
+  border-color: var(--ink-900);
+  color: var(--ink-900);
+}
+
+.chip--static {
+  background: var(--paper-0);
+  cursor: default;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+/* ---------- Факты ---------- */
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  margin: 0;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.facts__item {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem 1.1rem;
+  background: var(--paper-0);
+}
+
+.facts dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-400);
+}
+
+.facts dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Хиты ---------- */
+
+.hits__list {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.hits__note {
+  margin-top: 1rem;
+  font-size: var(--step--1);
+  color: var(--ink-400);
+}
+
+/* ---------- Категории ---------- */
+
+.cats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cat-card button {
+  display: grid;
+  gap: 0.45rem;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 1.1rem;
+  text-align: left;
+  background: var(--paper-0);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  transition: border-color var(--dur) var(--ease-out), transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.cat-card button:hover {
+  border-color: var(--ink-900);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.cat-card__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.cat-card h3 {
+  font-size: var(--step-1);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.cat-card__count {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-400);
+  font-variant-numeric: tabular-nums;
+  padding: 0.1rem 0.45rem;
+  background: var(--paper-2);
+  border-radius: var(--radius-pill);
+}
+
+.cat-card__sample {
+  font-size: var(--step--1);
+  line-height: 1.45;
+  color: var(--ink-400);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cat-card__from {
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--gold-700);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- О ресторане ---------- */
+
+.about__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(1.75rem, 3vw, 3.5rem);
+  align-items: start;
+}
+
+.about__text {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.atmo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.atmo__item {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--paper-3);
+}
+
+.atmo__item img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  transition: scale var(--dur-slow) var(--ease-out);
+}
+
+.atmo__item:hover img {
+  scale: 1.04;
+}
+
+/* ---------- Шаги (доставка и QR) ---------- */
+
+.steps {
+  display: grid;
+  gap: 0.85rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.steps li {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+}
+
+.steps__num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  background: var(--ink-900);
+  color: var(--paper-0);
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.steps strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.steps span {
+  display: block;
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+/* ---------- Доставка ---------- */
+
+.delivery__grid,
+.qr__grid,
+.booking__grid,
+.contacts__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.75rem, 3vw, 3.5rem);
+  align-items: start;
+}
+
+.delivery__figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--paper-3);
+}
+
+.delivery__figure img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 50% 58%;
+}
+
+.delivery__text {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.delivery__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+/* ---------- QR ---------- */
+
+.qr__text {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.qr__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+.qr__card {
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  padding: clamp(1.5rem, 2vw, 2.25rem);
+  background: var(--paper-0);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.qr__frame {
+  padding: 0.85rem;
+  background: var(--paper-0);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+}
+
+.qr__frame img {
+  width: clamp(9rem, 20vw, 12rem);
+  height: auto;
+}
+
+.qr__caption {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-top: 0.5rem;
+}
+
+.qr__hint {
+  font-size: var(--step--1);
+  color: var(--ink-400);
+  text-align: center;
+  max-width: 26ch;
+}
+
+/* ---------- Бронь ---------- */
+
+.booking__text {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.booking__figure {
+  margin: 0.5rem 0 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--paper-3);
+}
+
+.booking__figure img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: 50% 55%;
+}
+
+.form {
+  display: grid;
+  gap: 0.9rem;
+  padding: clamp(1.25rem, 2vw, 1.85rem);
+  background: var(--paper-0);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.form__row--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.form__small {
+  font-size: 0.75rem;
+  color: var(--ink-300);
+  text-align: center;
+}
+
+.form__done {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: start;
+  padding-block: 0.5rem;
+}
+
+.form__done h3 {
+  font-size: var(--step-2);
+}
+
+.form__done p {
+  font-size: var(--step-0);
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+
+/* ---------- Контакты ---------- */
+
+.contacts__info {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.contacts__list {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  width: 100%;
+}
+
+.contacts__list div {
+  display: grid;
+  gap: 0.15rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.contacts__list dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-400);
+}
+
+.contacts__list dd {
+  margin: 0;
+  font-size: var(--step-0);
+  font-weight: 500;
+}
+
+.contacts__list a {
+  border-bottom: 1px solid var(--line-strong);
+  transition: border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+}
+
+.contacts__list a:hover {
+  color: var(--gold-700);
+  border-color: var(--gold-500);
+}
+
+.contacts__muted {
+  font-size: var(--step--1) !important;
+  font-weight: 400 !important;
+  color: var(--ink-400);
+}
+
+.contacts__map {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--paper-3);
+  min-height: 22rem;
+}
+
+.contacts__map iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 22rem;
+  border: 0;
+}
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 1000px) {
+  .hero__grid,
+  .about__grid,
+  .delivery__grid,
+  .qr__grid,
+  .booking__grid,
+  .contacts__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .qr__card {
+    justify-self: start;
+  }
+
+  .booking__figure {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .facts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form__row,
+  .form__row--3 {
+    grid-template-columns: 1fr;
+  }
+
+  .finder {
+    flex-wrap: wrap;
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .finder input {
+    padding-block: 0.3rem;
+  }
+
+  .finder .btn {
+    width: 100%;
+  }
+
+  .atmo {
+    gap: 0.45rem;
+  }
+}

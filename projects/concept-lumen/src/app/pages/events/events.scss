@@ -1,0 +1,282 @@
+/* ==========================================================================
+   Страница банкетов «Lumen»: практичная, с ответами на вопросы, а не открыткой.
+   ========================================================================== */
+
+.ev-hero {
+  padding-block: clamp(2rem, 1.5rem + 3vw, 4rem) clamp(2rem, 1.5rem + 3vw, 3.5rem);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.ev-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(1.75rem, 3vw, 3.5rem);
+  align-items: center;
+}
+
+.ev-hero__text {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.ev-hero__text h1 {
+  font-size: var(--step-4);
+  letter-spacing: -0.035em;
+  max-width: 20ch;
+}
+
+.ev-hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+.ev-hero__figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--paper-3);
+}
+
+.ev-hero__figure img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 50% 76%;
+}
+
+/* ---------- Поводы ---------- */
+
+.occasions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.occasion {
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+  padding: 1.15rem 1.25rem;
+  background: var(--paper-0);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  border-top: 2px solid var(--gold-500);
+}
+
+.occasion h3 {
+  font-size: var(--step-1);
+  letter-spacing: -0.025em;
+}
+
+.occasion p {
+  font-size: var(--step--1);
+  line-height: 1.55;
+  color: var(--ink-muted);
+}
+
+/* ---------- Организация ---------- */
+
+.included__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: clamp(1.75rem, 3vw, 3.5rem);
+  align-items: start;
+}
+
+.included__list {
+  display: grid;
+  gap: 0.9rem;
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+}
+
+.included__list li {
+  display: grid;
+  gap: 0.15rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.included__list strong {
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.included__list span {
+  font-size: var(--step--1);
+  line-height: 1.55;
+  color: var(--ink-muted);
+}
+
+.included__figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--paper-3);
+}
+
+.included__figure img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: 50% 42%;
+}
+
+/* ---------- Шаги ---------- */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+}
+
+.step {
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+  padding: 1.15rem 1.25rem;
+  background: var(--paper-0);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.step__num {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--gold-500);
+  font-variant-numeric: tabular-nums;
+}
+
+.step h3 {
+  font-size: var(--step-0);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.step p {
+  font-size: var(--step--1);
+  line-height: 1.55;
+  color: var(--ink-muted);
+}
+
+/* ---------- Заявка ---------- */
+
+.event-form__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.75rem, 3vw, 3.5rem);
+  align-items: start;
+}
+
+.event-form__text {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.event-form__figure {
+  margin: 0.5rem 0 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--paper-3);
+}
+
+.event-form__figure img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: 50% 55%;
+}
+
+.form {
+  display: grid;
+  gap: 0.9rem;
+  padding: clamp(1.25rem, 2vw, 1.85rem);
+  background: var(--paper-0);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.form__small {
+  font-size: 0.75rem;
+  color: var(--ink-300);
+  text-align: center;
+}
+
+.form__done {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: start;
+  padding-block: 0.5rem;
+}
+
+.form__done h3 {
+  font-size: var(--step-2);
+}
+
+.form__done p {
+  font-size: var(--step-0);
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+
+/* ---------- Финальный призыв ---------- */
+
+.back-home {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+}
+
+.back-home__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 1000px) {
+  .ev-hero__grid,
+  .included__grid,
+  .event-form__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .included__figure img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .event-form__figure {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+}
