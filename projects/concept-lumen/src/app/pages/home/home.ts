@@ -76,7 +76,7 @@ export class HomePage implements OnInit {
 
   protected readonly deliveryShot = 'img/instagram/11-reel-DcyaobvRuRI.jpg';
   protected readonly bookingShot = 'img/instagram/09-reel-Dc6UZVOIrp0.jpg';
-  protected readonly tableQr = 'img/qr/table-7.svg';
+  protected readonly tableQr = 'img/qr/lumen/table-7.svg';
 
   protected readonly deliverySteps = [
     { n: '01', title: 'Выбираете блюда', text: 'Меню и цены — на сайте, без звонка и уточнений.' },

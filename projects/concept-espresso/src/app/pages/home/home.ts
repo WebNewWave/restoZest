@@ -87,7 +87,7 @@ export class HomePage implements OnInit {
   protected readonly heroShot = 'img/instagram/01-reel-DaA5anRomGR.jpg';
   protected readonly brandShot = 'img/instagram/08-reel-DdBOqv4ojNd.jpg';
   protected readonly weddingShot = 'img/instagram/03-reel-DdjpF0ZIAmA.jpg';
-  protected readonly tableQr = 'img/qr/table-7.svg';
+  protected readonly tableQr = 'img/qr/espresso/table-7.svg';
 
   /**
    * Блюда-визитки.
